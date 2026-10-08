@@ -1,0 +1,7 @@
+{
+  "upstream_repository": "https://github.com/Accademia/Additional_Rule_For_Clash",
+  "upstream_ref": "main",
+  "sing_box_version": "1.14.2",
+  "sing_box_linux_amd64_sha256": "a684484d7477d1437282ee411f4d131d0340aaad60a7868841ebd5d87dd8a0c6",
+  "rule_set_version": 2
+}

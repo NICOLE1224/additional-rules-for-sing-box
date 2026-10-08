@@ -1,0 +1,477 @@
+[
+  {
+    "source": "Aqara/AqaraCN._Domain.yaml",
+    "value": "*aqara-camera-cn.",
+    "reason": "empty domain, whitespace or trailing dot"
+  },
+  {
+    "source": "Aqara/AqaraGlobal._Domain.yaml",
+    "value": "*aqara-camera-usa.",
+    "reason": "empty domain, whitespace or trailing dot"
+  },
+  {
+    "source": "Aqara/AqaraGlobal._Domain.yaml",
+    "value": "*aqara-camera-ru.",
+    "reason": "empty domain, whitespace or trailing dot"
+  },
+  {
+    "source": "Aqara/AqaraGlobal._Domain.yaml",
+    "value": "*aqara-camera-kr.",
+    "reason": "empty domain, whitespace or trailing dot"
+  },
+  {
+    "source": "Aqara/AqaraGlobal._Domain.yaml",
+    "value": "*aqara-camera-ger.",
+    "reason": "empty domain, whitespace or trailing dot"
+  },
+  {
+    "source": "Aqara/AqaraGlobal._Domain.yaml",
+    "value": "*aqara-camera-au.",
+    "reason": "empty domain, whitespace or trailing dot"
+  },
+  {
+    "source": "Aqara/AqaraGlobal._Domain.yaml",
+    "value": "*aqara-camera-sg.",
+    "reason": "empty domain, whitespace or trailing dot"
+  },
+  {
+    "source": "GeositeCN/GeositeCN_Domain.yaml",
+    "value": "+.*-aweme-*.*.*",
+    "reason": "partial-label * wildcard is unsupported by Mihomo"
+  },
+  {
+    "source": "GeositeCN/GeositeCN_Domain.yaml",
+    "value": "+.*-aweme-*.*.*.*",
+    "reason": "partial-label * wildcard is unsupported by Mihomo"
+  },
+  {
+    "source": "GeositeCN/GeositeCN_Domain.yaml",
+    "value": "+.*-aweme-*.*.*.*.*",
+    "reason": "partial-label * wildcard is unsupported by Mihomo"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:apilog-web.acfun.cn",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.regexp:.+\\.awsdns-cn-[0-9][0-9]\\.(biz|com|net|top)$",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.regexp:.+\\.awsdns-cn-[0-9][a-e0-9]\\.cn$",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:manga.bilibili.com",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:upos-hz-mirrorakam.akamaized.net",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:bytedance.map.fastly.net",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:ai.zhaomi.cn",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:cueme-api.quark.cn",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:hospital.pku.edu.cn",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:ss.bjmu.edu.cn",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:moocs.unipus.cn",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:opencourse.pku.edu.cn",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:study.163.com",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:ntp.aliyun.com",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:ntp.tencent.com",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:ntp1.aliyun.com",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:ntp1.tencent.com",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:ntp2.aliyun.com",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:ntp2.tencent.com",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:ntp3.aliyun.com",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:ntp3.tencent.com",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:ntp4.aliyun.com",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:ntp4.tencent.com",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:ntp5.aliyun.com",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:ntp5.tencent.com",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:ntp6.aliyun.com",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:ntp7.aliyun.com",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:time.amazonaws.cn",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:time.izatcloud.net",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:time.xtracloud.net",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:www.libvideo.com",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:p3-novel.byteimg.com",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:p6-novel.byteimg.com",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:ads3-normal-hl.zijieapi.com",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:ads3-normal.zijieapi.com",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:ads5-normal-hl.zijieapi.com",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:ads5-normal.zijieapi.com",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:log3-applog-hl.fqnovel.com",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:log3-applog.fqnovel.com",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:log5-applog-hl.fqnovel.com",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:log5-applog.fqnovel.com",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:p3-ad-sign.byteimg.com",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:p6-ad-sign.byteimg.com",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:p9-ad-sign.byteimg.com",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:rtlog3-applog-hl.fqnovel.com",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:rtlog3-applog.fqnovel.com",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:rtlog5-applog-hl.fqnovel.com",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:rtlog5-applog.fqnovel.com",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:geetest.datasink.sensorsdata.cn",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:hellofontpreview.oss-cn-beijing.aliyuncs.com",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:hellowebfonts.oss-cn-beijing.aliyuncs.com",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:p1-juejin.byteimg.com",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:p2-juejin.byteimg.com",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:p3-juejin.byteimg.com",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:p4-juejin.byteimg.com",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:p5-juejin.byteimg.com",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:p6-juejin.byteimg.com",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:p7-juejin.byteimg.com",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:p8-juejin.byteimg.com",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:p9-juejin.byteimg.com",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:kc.kexinshe.com",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:log-sdk.gifshow.com",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:wlog.kuaishou.com",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.regexp:^.+-mihayo\\.akamaized\\.net$",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:community.oneplus.com",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.regexp:\\.(.+-)?ap-beijing(-.+)?\\.myqcloud\\.com$",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.regexp:\\.(.+-)?ap-beijing(-.+)?\\.tencentcos\\.(cn|com(\\.cn)?)$",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.regexp:\\.(.+-)?ap-chengdu(-.+)?\\.myqcloud\\.com$",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.regexp:\\.(.+-)?ap-chengdu(-.+)?\\.tencentcos\\.(cn|com(\\.cn)?)$",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.regexp:\\.(.+-)?ap-chongqing(-.+)?\\.myqcloud\\.com$",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.regexp:\\.(.+-)?ap-chongqing(-.+)?\\.tencentcos\\.(cn|com(\\.cn)?)$",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.regexp:\\.(.+-)?ap-guangzhou(-.+)?\\.myqcloud\\.com$",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.regexp:\\.(.+-)?ap-guangzhou(-.+)?\\.tencentcos\\.(cn|com(\\.cn)?)$",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.regexp:\\.(.+-)?ap-nanjing(-.+)?\\.myqcloud\\.com$",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.regexp:\\.(.+-)?ap-nanjing(-.+)?\\.tencentcos\\.(cn|com(\\.cn)?)$",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.regexp:\\.(.+-)?ap-shanghai(-.+)?\\.myqcloud\\.com$",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.regexp:\\.(.+-)?ap-shanghai(-.+)?\\.tencentcos\\.(cn|com(\\.cn)?)$",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.regexp:\\.(.+-)?ap-shenzhen(-.+)?\\.myqcloud\\.com$",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.regexp:\\.(.+-)?ap-shenzhen(-.+)?\\.tencentcos\\.(cn|com(\\.cn)?)$",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:wetv.qq.com",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GeositeCN/备用数据/GeositeCN_domain.2025-12-03.yaml",
+    "value": "+.full:p16-tiktokcdn-com.akamaized.net",
+    "reason": "regex-like text is not a Clash domain-provider pattern"
+  },
+  {
+    "source": "GlobalDNS/GlobalDNS_Domain.yaml",
+    "value": "+.+.dns.controld.com",
+    "reason": "misplaced + wildcard"
+  },
+  {
+    "source": "GlobalDNS/GlobalDNS_Domain.yaml",
+    "value": "+.+.freedns.controld.com",
+    "reason": "misplaced + wildcard"
+  },
+  {
+    "source": "Pornhub/Pornhub_Domain.yaml",
+    "value": "+.*-missav.recombee.com",
+    "reason": "partial-label * wildcard is unsupported by Mihomo"
+  },
+  {
+    "source": "Pornhub/Pornhub_Domain.yaml",
+    "value": "+.*hls.saawsedge.com",
+    "reason": "partial-label * wildcard is unsupported by Mihomo"
+  }
+]

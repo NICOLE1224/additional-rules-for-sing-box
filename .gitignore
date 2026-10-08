@@ -1,0 +1,9 @@
+Additional_Rule_For_Clash/
+.venv/
+.tools/
+__pycache__/
+*.pyc
+dist/
+upstream/
+_publish/
+artifacts/
