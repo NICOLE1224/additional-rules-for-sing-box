@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Compare upstream HEAD and the build inputs with both published branches."""
+"""Compare upstream HEAD and the build inputs with all published branches."""
 import argparse
 import hashlib
 import json
@@ -8,7 +8,7 @@ from pathlib import Path
 import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
-BRANCHES = ("json", "srs")
+BRANCHES = ("json", "srs", "shadowrocket")
 
 
 def git(*args, cwd=None):

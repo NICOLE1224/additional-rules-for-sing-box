@@ -10,10 +10,43 @@ import unittest
 import yaml
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
-from convert import InvalidDomain, ROOT, UniqueLoader, build, convert_payload, domain_pattern
+from convert import (InvalidDomain, ROOT, UniqueLoader, build, convert_payload, domain_pattern,
+                     shadowrocket_rules, shadowrocket_wildcards)
 
 
 class ConversionTests(unittest.TestCase):
+    def test_optional_wildcards_preserve_patterns_and_report_unrepresentable_regex(self):
+        payload = ["+.example.*", "*.service.example", ".sub.example", "*.service.example",
+                   "DOMAIN-REGEX,^arbitrary[0-9]+$", "+.literal-?.*.example", "+.plain.example",
+                   "DOMAIN-SUFFIX,.typed.example,DIRECT"]
+        lines, represented = shadowrocket_wildcards(payload)
+        self.assertEqual(lines, ["DOMAIN-WILDCARD,*.example.*", "DOMAIN-WILDCARD,*.service.example",
+                                 "DOMAIN-WILDCARD,*.sub.example", "DOMAIN-WILDCARD,*.typed.example",
+                                 "DOMAIN-WILDCARD,example.*"])
+        self.assertEqual(len(represented), 4)
+        rule, *_ = convert_payload(payload, "Test.yaml", set())
+        main, excluded = shadowrocket_rules(rule)
+        self.assertEqual(main, ["DOMAIN-SUFFIX,plain.example"])
+        self.assertEqual(sum((e["field"], e["value"]) not in represented for e in excluded), 2)
+
+    def test_shadowrocket_export_has_no_policy_or_ip_and_preserves_literals(self):
+        rule, *_ = convert_payload(["DOMAIN,EXACT.example,REJECT", "+.example.net", "DOMAIN-KEYWORD,video",
+                                    "IP-CIDR,192.0.2.0/24,no-resolve", "+.awsdns-cn-??.com"], "Mixed.yaml", set())
+        lines, excluded = shadowrocket_rules(rule)
+        self.assertEqual(lines, ["DOMAIN,exact.example", "DOMAIN-KEYWORD,video",
+                                 "DOMAIN-SUFFIX,awsdns-cn-??.com", "DOMAIN-SUFFIX,example.net"])
+        self.assertEqual(excluded, [])
+
+    def test_shadowrocket_unconfirmed_regex_and_subdomain_only_are_reported(self):
+        rule, *_ = convert_payload(["*.example.com", ".example.org", "DOMAIN,ok.example"], "Test.yaml", set())
+        lines, excluded = shadowrocket_rules(rule)
+        self.assertEqual(lines, ["DOMAIN,ok.example"])
+        self.assertEqual({item["field"] for item in excluded}, {"domain_regex", "domain_suffix"})
+        self.assertEqual({item["value"] for item in excluded}, {r"^[^.]+\.example\.com$", ".example.org"})
+        for value in ["bad,value", "bad\nDOMAIN,other.example", " bad", ""]:
+            with self.subTest(value=value), self.assertRaises(ValueError):
+                shadowrocket_rules({"domain": [value]})
+
     def test_extract_mixed_domains_and_ignore_ips(self):
         payload = ["DOMAIN,EXAMPLE.com", "DOMAIN-SUFFIX,example.net",
                    "DOMAIN-KEYWORD,video", "IP-CIDR,192.0.2.0/24,no-resolve",
@@ -153,6 +186,21 @@ class CompilerTests(unittest.TestCase):
             self.assertEqual(manifest["source_files"], 3)
             self.assertEqual(manifest["generated_rule_sets"], 2)
             self.assertEqual((one / "json/manifest.json").read_bytes(), (one / "srs/manifest.json").read_bytes())
+            self.assertEqual((one / "json/manifest.json").read_bytes(), (one / "shadowrocket/manifest.json").read_bytes())
+            self.assertEqual(manifest["shadowrocket"], {"generated_rule_sets": 1, "unique_entries": 2,
+                                                       "excluded_from_primary_entries": 1,
+                                                       "generated_wildcard_rule_sets": 1, "wildcard_unique_entries": 2,
+                                                       "wildcard_covered_predicates": 1, "unrepresented_entries": 0})
+            self.assertEqual([i["source"] for i in manifest["issues"] if i["status"] == "excluded_shadowrocket_primary"],
+                             ["Group/Test_Domain.yml"])
+            self.assertEqual((one / "shadowrocket/Group/Test.list").read_text().splitlines()[4:],
+                             ["DOMAIN,exact.example", "DOMAIN-KEYWORD,video"])
+            self.assertFalse((one / "shadowrocket/Group/Test_Domain.list").exists())
+            self.assertFalse((one / "shadowrocket/Group/Only_IP.list").exists())
+            self.assertNotIn("Test_Domain.list", (one / "shadowrocket/INDEX.md").read_text())
+            self.assertIn("Test_Domain.wildcard.list", (one / "shadowrocket/INDEX.md").read_text())
+            self.assertEqual((one / "shadowrocket/Group/Test_Domain.wildcard.list").read_text().splitlines()[4:],
+                             ["DOMAIN-WILDCARD,*.example.*", "DOMAIN-WILDCARD,example.*"])
             self.assertFalse((one / "srs/Group/Only_IP.srs").exists())
             for path in one.rglob("*"):
                 if path.is_file():
@@ -168,6 +216,7 @@ class CompilerTests(unittest.TestCase):
         cases = [
             {"Test.yaml": "payload: ['+.ok.example']", "Test.yml": "payload: ['+.other.example']"},
             {"Test.yaml": "payload: ['DOMAIN-REGEX,[']"},
+            {"Test.yaml": "payload: ['+.example.*']", "Test.wildcard.yaml": "payload: ['+.other.example']"},
         ]
         for files in cases:
             with self.subTest(files=files), tempfile.TemporaryDirectory() as temporary:

@@ -6,7 +6,9 @@ import tempfile
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
-from check_upstream import ROOT, published_changed
+from check_upstream import BRANCHES, ROOT, published_changed
+
+EXTENSIONS = {"json": "json", "srs": "srs", "shadowrocket": "list"}
 
 
 class PublishingTests(unittest.TestCase):
@@ -28,7 +30,7 @@ class PublishingTests(unittest.TestCase):
         self.write_products()
 
     def write_products(self, commit=None, filename="Rule"):
-        for branch in ("json", "srs"):
+        for branch in BRANCHES:
             path = self.dist / branch
             path.mkdir(parents=True, exist_ok=True)
             for file in path.iterdir():
@@ -36,13 +38,13 @@ class PublishingTests(unittest.TestCase):
             manifest = {"upstream_commit": commit or self.commit, "build_fingerprint": self.recipe}
             (path / "manifest.json").write_text(json.dumps(manifest))
             (path / "LICENSE.upstream").write_text("MIT License")
-            (path / f"{filename}.{branch}").write_text("fixture product")
+            (path / f"{filename}.{EXTENSIONS[branch]}").write_text("fixture product")
 
     def publish(self, check=True):
         return self.command("bash", str(ROOT / "scripts/publish.sh"), str(self.checkout), str(self.dist), check=check)
 
     def heads(self):
-        return self.command("git", "ls-remote", "--heads", str(self.remote), "main", "json", "srs").stdout
+        return self.command("git", "ls-remote", "--heads", str(self.remote), "main", *BRANCHES).stdout
 
     def test_first_build_and_unchanged_publication(self):
         self.assertTrue(published_changed(self.commit, self.recipe, self.checkout))
@@ -58,17 +60,17 @@ class PublishingTests(unittest.TestCase):
         self.publish()
         self.write_products(commit="c" * 40, filename="Replacement")
         self.publish()
-        for branch in ("json", "srs"):
+        for branch in BRANCHES:
             listing = self.command("git", "--git-dir", str(self.remote), "ls-tree", "--name-only", branch).stdout
-            self.assertIn(f"Replacement.{branch}", listing)
-            self.assertNotIn(f"Rule.{branch}", listing)
+            self.assertIn(f"Replacement.{EXTENSIONS[branch]}", listing)
+            self.assertNotIn(f"Rule.{EXTENSIONS[branch]}", listing)
         self.assertFalse(published_changed("c" * 40, self.recipe, self.checkout))
 
-    def test_rejecting_one_branch_leaves_both_remote_heads_unchanged(self):
+    def test_rejecting_shadowrocket_leaves_all_remote_heads_unchanged(self):
         self.publish()
         before = self.heads()
         hook = self.remote / "hooks/pre-receive"
-        hook.write_text('#!/usr/bin/env bash\nwhile read -r old new ref; do\n  if [[ "$ref" == refs/heads/srs ]]; then exit 1; fi\ndone\n')
+        hook.write_text('#!/usr/bin/env bash\nwhile read -r old new ref; do\n  if [[ "$ref" == refs/heads/shadowrocket ]]; then exit 1; fi\ndone\n')
         hook.chmod(0o755)
         self.write_products(commit="e" * 40)
         result = self.publish(check=False)
@@ -77,18 +79,30 @@ class PublishingTests(unittest.TestCase):
 
     def test_inconsistent_manifests_are_rejected_before_branch_changes(self):
         before = self.heads()
-        (self.dist / "srs/manifest.json").write_text("{}")
+        (self.dist / "shadowrocket/manifest.json").write_text("{}")
         self.assertNotEqual(self.publish(check=False).returncode, 0)
         self.assertEqual(before, self.heads())
 
     def test_missing_branch_or_broken_manifest_triggers_rebuild(self):
         self.publish()
-        (self.dist / "json/manifest.json").write_text("broken")
-        (self.dist / "srs/manifest.json").write_text("broken")
+        for branch in BRANCHES:
+            (self.dist / branch / "manifest.json").write_text("broken")
         self.publish()
         self.assertTrue(published_changed(self.commit, self.recipe, self.checkout))
         self.command("git", "--git-dir", str(self.remote), "update-ref", "-d", "refs/heads/json")
         self.assertTrue(published_changed(self.commit, self.recipe, self.checkout))
+
+    def test_missing_shadowrocket_is_added_without_rewriting_existing_history(self):
+        self.publish()
+        previous = {branch: self.command("git", "--git-dir", str(self.remote), "rev-parse", branch).stdout.strip()
+                    for branch in ("json", "srs")}
+        self.command("git", "--git-dir", str(self.remote), "update-ref", "-d", "refs/heads/shadowrocket")
+        self.assertTrue(published_changed(self.commit, self.recipe, self.checkout))
+        self.write_products(commit="f" * 40)
+        self.publish()
+        for branch, parent in previous.items():
+            self.assertEqual(self.command("git", "--git-dir", str(self.remote), "rev-parse", f"{branch}^").stdout.strip(), parent)
+        self.assertFalse(published_changed("f" * 40, self.recipe, self.checkout))
 
 
 if __name__ == "__main__":

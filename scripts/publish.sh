@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Publish two generated branches together, without rewriting their history.
+# Publish all generated branches together, without rewriting their history.
 set -euo pipefail
 
 checkout=$(realpath "${1:?usage: publish.sh CHECKOUT OUTPUT}")
@@ -17,20 +17,27 @@ if [[ -n "$(git -C "$checkout" status --porcelain)" ]]; then
   echo "Publish checkout must be clean" >&2
   exit 1
 fi
-for branch in json srs; do
+branches=(json srs shadowrocket)
+for branch in "${branches[@]}"; do
   test -f "$output/$branch/manifest.json"
   test -f "$output/$branch/LICENSE.upstream"
 done
 cmp "$output/json/manifest.json" "$output/srs/manifest.json"
+cmp "$output/json/manifest.json" "$output/shadowrocket/manifest.json"
 
 git -C "$checkout" config user.name 'github-actions[bot]'
 git -C "$checkout" config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-remote_heads=$(git -C "$checkout" ls-remote --heads origin json srs)
-for branch in json srs; do
+remote_heads=$(git -C "$checkout" ls-remote --heads origin "${branches[@]}")
+for branch in "${branches[@]}"; do
   if [[ "$remote_heads" == *"refs/heads/$branch"* ]]; then
     git -C "$checkout" fetch --no-tags --depth=1 origin "refs/heads/$branch"
     git -C "$checkout" checkout -B "$branch" FETCH_HEAD
   else
+    # A previous disposable run may still have a local ref for a deleted remote.
+    if git -C "$checkout" show-ref --verify --quiet "refs/heads/$branch"; then
+      git -C "$checkout" checkout --detach
+      git -C "$checkout" branch -D "$branch"
+    fi
     git -C "$checkout" checkout --orphan "$branch"
   fi
   # These are dedicated generated branches; remove obsolete tracked products.
@@ -41,5 +48,5 @@ for branch in json srs; do
     git -C "$checkout" commit --quiet -m "Update $branch domain rule-sets"
   fi
 done
-# If either ref is rejected, neither remote branch is advanced. No force push.
-git -C "$checkout" push --atomic origin json srs
+# If any ref is rejected, no remote branch is advanced. No force push.
+git -C "$checkout" push --atomic origin "${branches[@]}"

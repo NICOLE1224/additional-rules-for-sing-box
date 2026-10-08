@@ -85,7 +85,7 @@ jobs:
         with:
           path: _publish
 
-      - name: Publish JSON and SRS branches atomically
+      - name: Publish JSON, SRS and Shadowrocket branches atomically
         if: steps.upstream.outputs.changed == 'true'
         run: bash scripts/publish.sh _publish dist
 
@@ -96,7 +96,7 @@ jobs:
           UPSTREAM_SHA: ${{ steps.upstream.outputs.upstream_sha }}
         run: |
           if [[ "$CHANGED" == true ]]; then
-            echo "JSON and SRS branches updated from upstream $UPSTREAM_SHA." >> "$GITHUB_STEP_SUMMARY"
+            echo "JSON, SRS and Shadowrocket branches updated from upstream $UPSTREAM_SHA." >> "$GITHUB_STEP_SUMMARY"
           else
             echo "Upstream and converter are unchanged; build and publication skipped." >> "$GITHUB_STEP_SUMMARY"
           fi

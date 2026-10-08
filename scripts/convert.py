@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Extract domain predicates from Clash YAML and compile sing-box rule-sets."""
+"""Extract domain predicates for sing-box and Shadowrocket rule-sets."""
 import argparse
 from collections import Counter, defaultdict
 import hashlib
@@ -14,7 +14,7 @@ from urllib.parse import quote
 
 import yaml
 
-from check_upstream import ROOT, fingerprint, git
+from check_upstream import BRANCHES, ROOT, fingerprint, git
 
 FIELDS = {"DOMAIN": "domain", "DOMAIN-SUFFIX": "domain_suffix",
           "DOMAIN-KEYWORD": "domain_keyword", "DOMAIN-REGEX": "domain_regex"}
@@ -141,6 +141,61 @@ def write_json(path, value):
     path.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
+def shadowrocket_rules(rule):
+    """Export supported two-column predicates without inventing regex support."""
+    kinds = {"domain": "DOMAIN", "domain_suffix": "DOMAIN-SUFFIX", "domain_keyword": "DOMAIN-KEYWORD"}
+    lines, excluded = [], []
+    for field, values in sorted(rule.items()):
+        for value in values:
+            reason = None
+            if field == "domain_regex":
+                reason = "Equivalent DOMAIN-REGEX support in Shadowrocket is unconfirmed"
+            elif field == "domain_suffix" and value.startswith("."):
+                reason = "Equivalent subdomain-only suffix semantics in Shadowrocket are unconfirmed"
+            elif field not in kinds:
+                raise ValueError(f"Unsupported Shadowrocket export field: {field}")
+            if reason:
+                excluded.append({"field": field, "value": value, "reason": reason})
+                continue
+            if not value or any(c in value for c in ",\r\n") or value != value.strip():
+                raise ValueError(f"Unsafe Shadowrocket rule value: {value!r}")
+            lines.append(f"{kinds[field]},{value}")
+    return lines, excluded
+
+
+def shadowrocket_wildcards(payload):
+    """Offer original Clash patterns as opt-in globs; their semantics can widen."""
+    patterns, represented = set(), set()
+    for raw in payload:
+        raw = raw.strip()
+        if "," in raw:
+            parts = [part.strip() for part in raw.split(",")]
+            if parts[0].upper() == "DOMAIN-SUFFIX" and len(parts) > 1 and parts[1].startswith("."):
+                raw = parts[1]
+            else:
+                # Arbitrary classical DOMAIN-REGEX cannot safely be reversed to a glob.
+                continue
+        try:
+            field, value = domain_pattern(raw)
+        except InvalidDomain:
+            # Invalid upstream entries were checked/allowlisted by convert_payload.
+            continue
+        if field != "domain_regex" and not (field == "domain_suffix" and value.startswith(".")):
+            continue
+        if "?" in raw:
+            # Literal '?' in Mihomo would become a wildcard in this target format.
+            continue
+        raw = raw.lower()
+        if raw.startswith("+."):
+            patterns.update((raw[2:], "*." + raw[2:]))
+        elif raw.startswith("."):
+            patterns.add("*" + raw)
+        else:
+            patterns.add(raw)
+        represented.add((field, value))
+    return [f"DOMAIN-WILDCARD,{value}" for value in sorted(patterns)], represented
+
+
 def run(*args):
     result = subprocess.run(args, capture_output=True, text=True)
     if result.returncode:
@@ -170,7 +225,7 @@ def build(source_dir, output, compiler):
     output.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix=".convert-", dir=output.parent) as temporary:
         staging = Path(temporary)
-        sources, issues, outputs = [], [], set()
+        sources, issues, outputs, shadowrocket_paths = [], [], set(), set()
         for path in files:
             relative = path.relative_to(source_dir)
             data = yaml.load(path.read_text(encoding="utf-8-sig"), Loader=UniqueLoader)
@@ -194,8 +249,47 @@ def build(source_dir, output, compiler):
                 record.update(json=json_relative.as_posix(), srs=srs_relative.as_posix(),
                               srs_sha256=hashlib.sha256(srs_path.read_bytes()).hexdigest(),
                               json_sha256=hashlib.sha256(json_path.read_bytes()).hexdigest(), status="converted")
+                lines, excluded = shadowrocket_rules(rule)
+                wildcard_lines, represented = shadowrocket_wildcards(data["payload"])
+                record.update(shadowrocket_unique_entries=len(lines), shadowrocket_excluded_from_primary_entries=len(excluded),
+                              shadowrocket_wildcard_unique_entries=len(wildcard_lines),
+                              shadowrocket_wildcard_covered_predicates=len(represented),
+                              shadowrocket_unrepresented_entries=sum((e["field"], e["value"]) not in represented for e in excluded),
+                              shadowrocket_status="converted" if lines else "no_supported_domain_rules")
+                issues.extend({"source": relative.as_posix(), **item, "status": "excluded_shadowrocket_primary",
+                               "wildcard_supplement_available": (item["field"], item["value"]) in represented}
+                              for item in excluded)
+                if lines:
+                    list_relative = relative.with_suffix(".list")
+                    if list_relative in shadowrocket_paths:
+                        raise ValueError(f"Shadowrocket filename collision: {list_relative}")
+                    shadowrocket_paths.add(list_relative)
+                    list_path = staging / "shadowrocket" / list_relative
+                    list_path.parent.mkdir(parents=True, exist_ok=True)
+                    header = ["# Shadowrocket RULE-SET: domain predicates only; policy is supplied by the caller.",
+                              f"# Source: {relative.as_posix()}", f"# Upstream commit: {upstream_commit}",
+                              f"# Unsupported predicates excluded: {len(excluded)}; see manifest.json."]
+                    list_path.write_text("\n".join(header + lines) + "\n", encoding="utf-8")
+                    record.update(shadowrocket=list_relative.as_posix(),
+                                  shadowrocket_sha256=hashlib.sha256(list_path.read_bytes()).hexdigest())
+                if wildcard_lines:
+                    wildcard_relative = relative.with_suffix(".wildcard.list")
+                    if wildcard_relative in shadowrocket_paths:
+                        raise ValueError(f"Shadowrocket filename collision: {wildcard_relative}")
+                    shadowrocket_paths.add(wildcard_relative)
+                    wildcard_path = staging / "shadowrocket" / wildcard_relative
+                    wildcard_path.parent.mkdir(parents=True, exist_ok=True)
+                    header = ["# OPTIONAL Shadowrocket DOMAIN-WILDCARD supplement; subscribe separately.",
+                              "# WARNING: glob matching may cover more domains than the original Clash patterns.",
+                              f"# Source: {relative.as_posix()}", f"# Upstream commit: {upstream_commit}"]
+                    wildcard_path.write_text("\n".join(header + wildcard_lines) + "\n", encoding="utf-8")
+                    record.update(shadowrocket_wildcard=wildcard_relative.as_posix(),
+                                  shadowrocket_wildcard_sha256=hashlib.sha256(wildcard_path.read_bytes()).hexdigest())
             else:
                 record["status"] = "no_domain_rules"
+                record.update(shadowrocket_status="no_domain_rules", shadowrocket_unique_entries=0,
+                              shadowrocket_excluded_from_primary_entries=0, shadowrocket_wildcard_unique_entries=0,
+                              shadowrocket_wildcard_covered_predicates=0, shadowrocket_unrepresented_entries=0)
             sources.append(record)
         if not outputs:
             raise ValueError("No domain rule-sets were produced")
@@ -210,8 +304,16 @@ def build(source_dir, output, compiler):
         manifest = {"upstream_repository": config["upstream_repository"], "upstream_commit": upstream_commit,
                     "build_fingerprint": fingerprint(), "sing_box_version": config["sing_box_version"],
                     "rule_set_version": config["rule_set_version"], "source_files": len(files),
-                    "generated_rule_sets": len(outputs), "sources": sources, "issues": issues}
-        for branch in ("json", "srs"):
+                    "generated_rule_sets": len(outputs),
+                    "shadowrocket": {"generated_rule_sets": sum("shadowrocket" in r for r in sources),
+                                     "unique_entries": sum(r["shadowrocket_unique_entries"] for r in sources),
+                                     "excluded_from_primary_entries": sum(r["shadowrocket_excluded_from_primary_entries"] for r in sources),
+                                     "generated_wildcard_rule_sets": sum("shadowrocket_wildcard" in r for r in sources),
+                                     "wildcard_unique_entries": sum(r["shadowrocket_wildcard_unique_entries"] for r in sources),
+                                     "wildcard_covered_predicates": sum(r["shadowrocket_wildcard_covered_predicates"] for r in sources),
+                                     "unrepresented_entries": sum(r["shadowrocket_unrepresented_entries"] for r in sources)},
+                    "sources": sources, "issues": issues}
+        for branch in BRANCHES:
             write_json(staging / branch / "manifest.json", manifest)
             shutil.copy2(source_dir / "LICENSE", staging / branch / "LICENSE.upstream")
             shutil.copy2(ROOT / "README.md", staging / branch / "README.md")
@@ -219,13 +321,25 @@ def build(source_dir, output, compiler):
                      "该分支仅包含域名匹配条件。原始规则中的 DIRECT/REJECT 等策略需要自行配置。", "",
                      "| 上游文件 | 规则集 | 去重后条目数 |", "| --- | --- | --- |"]
             for record in sources:
-                if record["status"] == "converted":
+                if branch in record:
                     url = record[branch]
+                    count = record["shadowrocket_unique_entries"] if branch == "shadowrocket" else record["unique_entries"]
                     # Percent-encode non-ASCII archive paths for portable Markdown links.
-                    index.append(f"| {record['source']} | [{url}]({quote(url)}) | {record['unique_entries']} |")
+                    index.append(f"| {record['source']} | [{url}]({quote(url)}) | {count} |")
+            if branch == "shadowrocket":
+                index[6:6] = [f"主文件排除了 {manifest['shadowrocket']['excluded_from_primary_entries']} 条未确认等价支持的条件；"
+                              "可选通配符补充见下方，详情见 `manifest.json`。", ""]
+                index.extend(["", "## 可选 DOMAIN-WILDCARD 补充", "",
+                              "这些文件需单独订阅。通配符可能扩大原始 Clash 规则的匹配范围，请按需启用。", "",
+                              "| 上游文件 | 补充规则集 | 去重后条目数 |", "| --- | --- | --- |"])
+                for record in sources:
+                    if "shadowrocket_wildcard" in record:
+                        url = record["shadowrocket_wildcard"]
+                        index.append(f"| {record['source']} | [{url}]({quote(url)}) | {record['shadowrocket_wildcard_unique_entries']} |")
             (staging / branch / "INDEX.md").write_text("\n".join(index) + "\n", encoding="utf-8")
         staging.rename(output)
     print(f"Scanned {len(files)} YAML files; produced {len(outputs)} JSON/SRS pairs; "
+          f"{manifest['shadowrocket']['generated_rule_sets']} Shadowrocket lists; "
           f"excluded {sum(r.get('excluded_invalid_entries', 0) for r in sources)} known invalid entries.")
     return manifest
 
