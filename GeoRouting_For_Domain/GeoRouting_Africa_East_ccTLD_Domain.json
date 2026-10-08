@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "domain_suffix": [
+        "bi",
+        "er",
+        "et",
+        "ke",
+        "km",
+        "mg",
+        "mu",
+        "mw",
+        "mz",
+        "rw",
+        "so",
+        "ss",
+        "tz",
+        "ug",
+        "yt",
+        "zm",
+        "zw"
+      ]
+    }
+  ]
+}

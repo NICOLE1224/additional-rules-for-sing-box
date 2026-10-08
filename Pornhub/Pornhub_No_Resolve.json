@@ -1,0 +1,34 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "domain_keyword": [
+        "hanime",
+        "missav.",
+        "pornhub"
+      ],
+      "domain_suffix": [
+        "cdn.impactserving.com",
+        "e-hentai.org",
+        "hembed.com",
+        "hls.saawsedge.com",
+        "img.doppiocdn.com",
+        "kbnmnl.com",
+        "missav.recombee.com",
+        "myavlive.com",
+        "nineyu.com",
+        "phncdn.com",
+        "phprcdn.com",
+        "pornhub-deutsch.net",
+        "pornhubapparel.com",
+        "pornhubpremium.com",
+        "pronstore.com",
+        "surrit.com",
+        "xhotzcam.com",
+        "xmavrtracktor.com",
+        "xxxivjmp.com",
+        "xxxvjmp.com"
+      ]
+    }
+  ]
+}

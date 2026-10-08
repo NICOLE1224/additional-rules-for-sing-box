@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "domain_keyword": [
+        "revolut"
+      ],
+      "domain_suffix": [
+        "aqueduct.revolutlabs.com",
+        "revolut.com"
+      ]
+    }
+  ]
+}

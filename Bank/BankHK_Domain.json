@@ -1,0 +1,36 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "domain": [
+        "accdn.lpsnmedia.net",
+        "collect-ap-east-1.tealiumiq.com",
+        "hk.hsbc.com",
+        "mobile.eum-appdynamics.com",
+        "yvn1g4-cdn-settings.appsflyersdk.com",
+        "yvn1g4-launches.appsflyersdk.com"
+      ],
+      "domain_regex": [
+        "^(?:[^.]+\\.)*standchartbank\\.[^.]+\\.[^.]+$",
+        "^(?:[^.]+\\.)*standchartbank\\.[^.]+\\.[^.]+\\.[^.]+$",
+        "^(?:[^.]+\\.)*vam\\-hk\\.[^.]+\\.vv1865\\.com$"
+      ],
+      "domain_suffix": [
+        "bochk.com",
+        "cdn.zaticdn.com",
+        "citibank.com.hk",
+        "cmbwinglungbank.com",
+        "cncbinternational.com",
+        "dbs.com.hk",
+        "hangseng.com",
+        "hk.hsbc.com",
+        "hsbc.com.hk",
+        "ncb.com.hk",
+        "ocbcwhhk.com",
+        "sc.com",
+        "sc.com.hk",
+        "za.group"
+      ]
+    }
+  ]
+}

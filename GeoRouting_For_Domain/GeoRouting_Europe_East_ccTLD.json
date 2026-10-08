@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "domain_suffix": [
+        "al",
+        "ba",
+        "bg",
+        "by",
+        "cz",
+        "ee",
+        "hr",
+        "hu",
+        "lt",
+        "lv",
+        "md",
+        "mk",
+        "pl",
+        "ro",
+        "rs",
+        "ru",
+        "si",
+        "ua",
+        "xk"
+      ]
+    }
+  ]
+}

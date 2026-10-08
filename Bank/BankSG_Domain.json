@@ -1,0 +1,31 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "domain": [
+        "log-58144bf0.we-stats.com",
+        "mobile.eum-appdynamics.com",
+        "sg.hsbc.com"
+      ],
+      "domain_regex": [
+        "^(?:[^.]+\\.)*hsbc\\.edge\\.[^.]+\\.[^.]+\\.[^.]+$",
+        "^(?:[^.]+\\.)*vam\\-sg\\.[^.]+\\.vv1865\\.com$"
+      ],
+      "domain_suffix": [
+        "cimb.com.sg",
+        "citibank.com.sg",
+        "dbs.com.sg",
+        "hsbc.com.sg",
+        "maybank2u.com.sg",
+        "ocbc.com",
+        "rhbgroup.com.sg",
+        "sc.com",
+        "sc.com.sg",
+        "sg.hsbc.com",
+        "tags.tiqcdn.com",
+        "uob.com.sg",
+        "uob.sc.omtrdc.net"
+      ]
+    }
+  ]
+}

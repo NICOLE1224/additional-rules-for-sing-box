@@ -1,0 +1,42 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "domain": [
+        "uk.hsbc.com"
+      ],
+      "domain_regex": [
+        "^(?:[^.]+\\.)*vam\\-uk\\.[^.]+\\.vv1865\\.com$"
+      ],
+      "domain_suffix": [
+        "aldermore.co.uk",
+        "atombank.com",
+        "barclays.co.uk",
+        "chartersavingsbank.co.uk",
+        "co-operativebank.co.uk",
+        "gatehousebank.com",
+        "hampdenandco.com",
+        "hsbc.co.uk",
+        "ifastcorp.com",
+        "ifastgb.com",
+        "ikano.co.uk",
+        "investec.com",
+        "lloydsbank.com",
+        "metrobankonline.co.uk",
+        "nationwide.co.uk",
+        "natwest.com",
+        "paragonbank.co.uk",
+        "pcf.bank",
+        "santander.co.uk",
+        "sc.co.uk",
+        "securetrustbank.com",
+        "shawbrook.co.uk",
+        "starlingbank.com",
+        "tescobank.com",
+        "tsb.co.uk",
+        "uk.hsbc.com",
+        "virginmoneyukplc.com"
+      ]
+    }
+  ]
+}

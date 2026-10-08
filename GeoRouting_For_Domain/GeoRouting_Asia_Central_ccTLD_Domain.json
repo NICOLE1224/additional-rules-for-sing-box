@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "domain_suffix": [
+        "kg",
+        "kz",
+        "tj",
+        "tm",
+        "uz"
+      ]
+    }
+  ]
+}

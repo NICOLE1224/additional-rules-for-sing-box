@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "domain_keyword": [
+        "aqara-camera-cn."
+      ],
+      "domain_suffix": [
+        "aiot-coap-cn.aqara.com",
+        "aiot-coap.aqara.cn",
+        "aiot-rpc-3rd.aqara.cn",
+        "aiot-rpc-cn.aqara.com",
+        "aiot-rpc.ankasa.cn",
+        "aiot-rpc.aqara.cn",
+        "cdn.aqara.cn",
+        "coap-cn.aqara.com",
+        "coap.aqara.cn",
+        "open-cn.aqara.com",
+        "opencloud.aqara.cn",
+        "rpc-cn.aqara.com",
+        "rpc.aqara.cn",
+        "track-cn.aqara.com"
+      ]
+    }
+  ]
+}

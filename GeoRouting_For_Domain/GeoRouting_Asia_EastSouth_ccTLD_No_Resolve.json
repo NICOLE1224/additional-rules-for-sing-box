@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "domain_suffix": [
+        "bn",
+        "cx",
+        "id",
+        "kh",
+        "mm",
+        "my",
+        "ph",
+        "sg",
+        "th",
+        "vn"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "domain_suffix": [
+        "biliapi.net",
+        "bilibili.com",
+        "httpdns.aliyuncs.com",
+        "httpdns.bilivideo.com"
+      ]
+    }
+  ]
+}

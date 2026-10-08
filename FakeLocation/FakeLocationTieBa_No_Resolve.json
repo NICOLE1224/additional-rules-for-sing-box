@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "domain": [
+        "tiebac.baidu.com"
+      ],
+      "domain_suffix": [
+        "httpdns.baidu.com",
+        "httpdns.baidubce.com"
+      ]
+    }
+  ]
+}

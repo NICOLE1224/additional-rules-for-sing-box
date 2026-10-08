@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "domain_suffix": [
+        "ae",
+        "am",
+        "az",
+        "bh",
+        "ge",
+        "il",
+        "iq",
+        "ir",
+        "jo",
+        "kw",
+        "lb",
+        "om",
+        "ps",
+        "qa",
+        "sa",
+        "sy",
+        "tr",
+        "ye"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "domain_regex": [
+        "^(?:[^.]+\\.)*avmiss\\.[^.]+$",
+        "^(?:[^.]+\\.)*hanime1\\.[^.]+$",
+        "^(?:[^.]+\\.)*hanime\\.[^.]+$",
+        "^(?:[^.]+\\.)*hanimeone\\.[^.]+$",
+        "^(?:[^.]+\\.)*missav\\.[^.]+$",
+        "^(?:[^.]+\\.)*pornhub\\.[^.]+$"
+      ],
+      "domain_suffix": [
+        "cdn.impactserving.com",
+        "e-hentai.org",
+        "hembed.com",
+        "hotzcam.com",
+        "img.doppiocdn.com",
+        "kbnmnl.com",
+        "mavrtracktor.com",
+        "myavlive.com",
+        "nineyu.com",
+        "phncdn.com",
+        "phprcdn.com",
+        "pornhub-deutsch.net",
+        "pornhubapparel.com",
+        "pornhubpremium.com",
+        "pronstore.com",
+        "surrit.com",
+        "xxxivjmp.com",
+        "xxxvjmp.com"
+      ]
+    }
+  ]
+}

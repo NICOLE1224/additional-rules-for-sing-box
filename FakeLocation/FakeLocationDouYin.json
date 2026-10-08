@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "domain": [
+        "sso.douyin.com",
+        "www.douyin.com"
+      ],
+      "domain_suffix": [
+        "api6-core-lf.amemv.com",
+        "snssdk.com",
+        "toutiaoapi.com"
+      ]
+    }
+  ]
+}

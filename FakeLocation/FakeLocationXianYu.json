@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "domain": [
+        "dns.alidns.com"
+      ],
+      "domain_keyword": [
+        "acs.m.goofish.com"
+      ],
+      "domain_suffix": [
+        "adashx.m.taobao.com",
+        "amdc.m.taobao.com",
+        "guide-acs.taobao.com",
+        "h-adashx.ut.taobao.com"
+      ]
+    }
+  ]
+}

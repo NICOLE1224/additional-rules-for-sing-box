@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "domain_keyword": [
+        ".analytics.com"
+      ],
+      "domain_suffix": [
+        "admob.com",
+        "adsense.com",
+        "click.redditmail.com",
+        "www.googleadservices.com"
+      ]
+    }
+  ]
+}

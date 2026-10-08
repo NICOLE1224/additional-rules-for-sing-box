@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "domain_suffix": [
+        "af",
+        "bd",
+        "bt",
+        "in",
+        "lk",
+        "mv",
+        "np",
+        "pk"
+      ]
+    }
+  ]
+}

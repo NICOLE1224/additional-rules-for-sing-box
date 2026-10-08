@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "domain_keyword": [
+        "app-analytics-services",
+        "httpdns",
+        "httpsdns"
+      ],
+      "domain_suffix": [
+        "zhihu.com"
+      ]
+    }
+  ]
+}

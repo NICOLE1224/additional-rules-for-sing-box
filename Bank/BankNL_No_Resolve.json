@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "domain_suffix": [
+        "abnamro.com",
+        "bankofscotland.nl",
+        "bngbank.nl",
+        "devolksbank.nl",
+        "ing.com",
+        "leaseplan.com",
+        "nibc.com",
+        "rabobank.com",
+        "triodos.com",
+        "vanlanschotkempen.com"
+      ]
+    }
+  ]
+}

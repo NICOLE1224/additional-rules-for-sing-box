@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "domain": [
+        "hk.hsbc.com"
+      ],
+      "domain_suffix": [
+        ".hk.hsbc.com",
+        "bochk.com",
+        "cdn.zaticdn.com",
+        "citibank.com.hk",
+        "cmbwinglungbank.com",
+        "cncbinternational.com",
+        "dbs.com.hk",
+        "hangseng.com",
+        "hsbc.com.hk",
+        "ncb.com.hk",
+        "ocbcwhhk.com",
+        "sc.com",
+        "sc.com.hk",
+        "vam-hk.cloud1.vv1865.com",
+        "za.group"
+      ]
+    }
+  ]
+}

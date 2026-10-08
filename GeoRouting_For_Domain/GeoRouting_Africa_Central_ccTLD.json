@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "domain_suffix": [
+        "ao",
+        "cf",
+        "cg",
+        "cm",
+        "ga",
+        "gq",
+        "st",
+        "td"
+      ]
+    }
+  ]
+}

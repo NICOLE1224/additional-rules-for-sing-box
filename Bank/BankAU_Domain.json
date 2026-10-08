@@ -1,0 +1,29 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "domain": [
+        "au.hsbc.com"
+      ],
+      "domain_regex": [
+        "^(?:[^.]+\\.)*vam\\-au\\.[^.]+\\.vv1865\\.com$"
+      ],
+      "domain_suffix": [
+        "amp.com.au",
+        "anz.com.au",
+        "au.hsbc.com",
+        "bankwest.com.au",
+        "bendigobank.com.au",
+        "boq.com.au",
+        "citi.com.au",
+        "citibank.com.au",
+        "commbank.com.au",
+        "hsbc.com.au",
+        "macquarie.com.au",
+        "nab.com.au",
+        "suncorp.com.au",
+        "westpac.com.au"
+      ]
+    }
+  ]
+}

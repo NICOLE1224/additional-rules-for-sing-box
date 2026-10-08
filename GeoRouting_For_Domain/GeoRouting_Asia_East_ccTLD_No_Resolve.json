@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "domain_suffix": [
+        "hk",
+        "jp",
+        "kp",
+        "kr",
+        "mn",
+        "mo",
+        "tw"
+      ]
+    }
+  ]
+}
