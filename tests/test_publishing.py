@@ -7,6 +7,7 @@ import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 from check_upstream import BRANCHES, ROOT, published_changed
+from verify_published import verify_published
 
 EXTENSIONS = {"json": "json", "srs": "srs", "shadowrocket": "list"}
 
@@ -49,6 +50,9 @@ class PublishingTests(unittest.TestCase):
     def test_first_build_and_unchanged_publication(self):
         self.assertTrue(published_changed(self.commit, self.recipe, self.checkout))
         self.publish()
+        report = verify_published(self.checkout, self.dist)
+        self.assertEqual(set(report), set(BRANCHES))
+        self.assertTrue(all(r["rule_sets"] == 1 for r in report.values()))
         heads = self.heads()
         self.assertFalse(published_changed(self.commit, self.recipe, self.checkout))
         self.publish()
@@ -65,6 +69,36 @@ class PublishingTests(unittest.TestCase):
             self.assertIn(f"Replacement.{EXTENSIONS[branch]}", listing)
             self.assertNotIn(f"Rule.{EXTENSIONS[branch]}", listing)
         self.assertFalse(published_changed("c" * 40, self.recipe, self.checkout))
+        verify_published(self.checkout, self.dist)
+
+    def test_verification_rejects_missing_changed_or_extra_branch_files(self):
+        for alteration in ("missing", "changed", "extra"):
+            with self.subTest(alteration=alteration):
+                self.publish()
+                target = self.checkout / "Rule.list"
+                if alteration == "missing":
+                    target.unlink()
+                elif alteration == "changed":
+                    target.write_text("different rules")
+                else:
+                    (self.checkout / "unexpected.list").write_text("extra rules")
+                self.command("git", "add", "--all", cwd=self.checkout)
+                self.command("git", "commit", "-m", "Alter generated branch fixture", cwd=self.checkout)
+                self.command("git", "push", "origin", "shadowrocket", cwd=self.checkout)
+                with self.assertRaisesRegex(ValueError, "Incomplete or different shadowrocket contents"):
+                    verify_published(self.checkout, self.dist)
+
+    def test_verification_rejects_missing_remote_branch_and_unpublished_changes(self):
+        self.publish()
+        self.command("git", "--git-dir", str(self.remote), "update-ref", "-d", "refs/heads/json")
+        with self.assertRaisesRegex(ValueError, "Published json head"):
+            verify_published(self.checkout, self.dist)
+        self.publish()
+        (self.checkout / "Rule.list").write_text("unpublished rules")
+        self.command("git", "add", ".", cwd=self.checkout)
+        self.command("git", "commit", "-m", "Unpublished fixture", cwd=self.checkout)
+        with self.assertRaisesRegex(ValueError, "Published shadowrocket head"):
+            verify_published(self.checkout, self.dist)
 
     def test_rejecting_shadowrocket_leaves_all_remote_heads_unchanged(self):
         self.publish()
