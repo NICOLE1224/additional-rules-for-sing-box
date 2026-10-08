@@ -1,0 +1,21 @@
+# Shadowrocket RULE-SET: domain predicates only; policy is supplied by the caller.
+# Source: PreRepairEasyPrivacy/PreRepairEasyPrivacy_REJECT.yaml
+# Upstream commit: 0dff7831cdebc155ef57998fcd88ed20d977f788
+# Unsupported predicates excluded: 0; see manifest.json.
+DOMAIN-KEYWORD,amdc.m.taobao.com
+DOMAIN-KEYWORD,analytics.
+DOMAIN-KEYWORD,app-analytics
+DOMAIN-KEYWORD,app-log.
+DOMAIN-KEYWORD,applog.
+DOMAIN-KEYWORD,guide-acs.taobao.com
+DOMAIN-KEYWORD,ios-log.
+DOMAIN-KEYWORD,ioslog.
+DOMAIN-KEYWORD,pc-log.
+DOMAIN-KEYWORD,pclog.
+DOMAIN-SUFFIX,api.xsj.wasu.tv
+DOMAIN-SUFFIX,bgg.baidu.com
+DOMAIN-SUFFIX,fclog.baidu.com
+DOMAIN-SUFFIX,hector.baidu.com
+DOMAIN-SUFFIX,hectorstatic.baidu.com
+DOMAIN-SUFFIX,hm.baidu.com
+DOMAIN-SUFFIX,tcbox.baidu.com

@@ -1,0 +1,28 @@
+# Shadowrocket RULE-SET: domain predicates only; policy is supplied by the caller.
+# Source: ChinaDNS/ChinaDNS_Domain.yaml
+# Upstream commit: 0dff7831cdebc155ef57998fcd88ed20d977f788
+# Unsupported predicates excluded: 0; see manifest.json.
+DOMAIN,dns.114dns.com
+DOMAIN,dns.360.cn
+DOMAIN,dns.360.net
+DOMAIN,dns.alidns.com
+DOMAIN,dns.baidu.com
+DOMAIN,dns.cfiec.net
+DOMAIN,dns.pub
+DOMAIN,doh-pure.onedns.net
+DOMAIN,doh.114dns.com
+DOMAIN,doh.360.cn
+DOMAIN,doh.360.net
+DOMAIN,doh.baidu.com
+DOMAIN,doh.onedns.net
+DOMAIN,doh.pub
+DOMAIN,dot-pure.onedns.net
+DOMAIN,dot.360.cn
+DOMAIN,dot.360.net
+DOMAIN,dot.baidu.com
+DOMAIN,dot.onedns.net
+DOMAIN,dot.pub
+DOMAIN,dot.sdns.cn
+DOMAIN,sm2.doh.pub
+DOMAIN-SUFFIX,dns.cn
+DOMAIN-SUFFIX,dns114.cn

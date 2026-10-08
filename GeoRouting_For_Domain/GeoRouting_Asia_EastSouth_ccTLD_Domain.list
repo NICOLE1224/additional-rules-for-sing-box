@@ -1,0 +1,14 @@
+# Shadowrocket RULE-SET: domain predicates only; policy is supplied by the caller.
+# Source: GeoRouting_For_Domain/GeoRouting_Asia_EastSouth_ccTLD_Domain.yaml
+# Upstream commit: 0dff7831cdebc155ef57998fcd88ed20d977f788
+# Unsupported predicates excluded: 0; see manifest.json.
+DOMAIN-SUFFIX,bn
+DOMAIN-SUFFIX,cx
+DOMAIN-SUFFIX,id
+DOMAIN-SUFFIX,kh
+DOMAIN-SUFFIX,mm
+DOMAIN-SUFFIX,my
+DOMAIN-SUFFIX,ph
+DOMAIN-SUFFIX,sg
+DOMAIN-SUFFIX,th
+DOMAIN-SUFFIX,vn

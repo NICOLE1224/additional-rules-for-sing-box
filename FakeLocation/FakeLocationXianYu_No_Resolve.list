@@ -1,0 +1,10 @@
+# Shadowrocket RULE-SET: domain predicates only; policy is supplied by the caller.
+# Source: FakeLocation/FakeLocationXianYu_No_Resolve.yaml
+# Upstream commit: 0dff7831cdebc155ef57998fcd88ed20d977f788
+# Unsupported predicates excluded: 0; see manifest.json.
+DOMAIN,dns.alidns.com
+DOMAIN-KEYWORD,acs.m.goofish.com
+DOMAIN-SUFFIX,adashx.m.taobao.com
+DOMAIN-SUFFIX,amdc.m.taobao.com
+DOMAIN-SUFFIX,guide-acs.taobao.com
+DOMAIN-SUFFIX,h-adashx.ut.taobao.com

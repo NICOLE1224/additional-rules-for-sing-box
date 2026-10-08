@@ -1,0 +1,12 @@
+# Shadowrocket RULE-SET: domain predicates only; policy is supplied by the caller.
+# Source: Bank/BankCA.yaml
+# Upstream commit: 0dff7831cdebc155ef57998fcd88ed20d977f788
+# Unsupported predicates excluded: 0; see manifest.json.
+DOMAIN-SUFFIX,bmo.com
+DOMAIN-SUFFIX,cibc.com
+DOMAIN-SUFFIX,cwbank.com
+DOMAIN-SUFFIX,desjardins.com
+DOMAIN-SUFFIX,laurentianbank.ca
+DOMAIN-SUFFIX,nbc.ca
+DOMAIN-SUFFIX,rbcroyalbank.com
+DOMAIN-SUFFIX,scotiabank.com

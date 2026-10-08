@@ -1,0 +1,14 @@
+# Shadowrocket RULE-SET: domain predicates only; policy is supplied by the caller.
+# Source: Bank/BankDE_Domain.yaml
+# Upstream commit: 0dff7831cdebc155ef57998fcd88ed20d977f788
+# Unsupported predicates excluded: 0; see manifest.json.
+DOMAIN-SUFFIX,bayernlb.com
+DOMAIN-SUFFIX,commerzbank.com
+DOMAIN-SUFFIX,db.com
+DOMAIN-SUFFIX,dzbank.de
+DOMAIN-SUFFIX,helaba.com
+DOMAIN-SUFFIX,kfw.de
+DOMAIN-SUFFIX,lbb.de
+DOMAIN-SUFFIX,lbbw.de
+DOMAIN-SUFFIX,nordlb.de
+DOMAIN-SUFFIX,saarlb.de

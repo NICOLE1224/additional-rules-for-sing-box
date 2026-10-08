@@ -1,0 +1,22 @@
+# Shadowrocket RULE-SET: domain predicates only; policy is supplied by the caller.
+# Source: GeoRouting_For_Domain/GeoRouting_Oceania_ccTLD_Domain.yaml
+# Upstream commit: 0dff7831cdebc155ef57998fcd88ed20d977f788
+# Unsupported predicates excluded: 0; see manifest.json.
+DOMAIN-SUFFIX,au
+DOMAIN-SUFFIX,ck
+DOMAIN-SUFFIX,fj
+DOMAIN-SUFFIX,fm
+DOMAIN-SUFFIX,ki
+DOMAIN-SUFFIX,mh
+DOMAIN-SUFFIX,mp
+DOMAIN-SUFFIX,nc
+DOMAIN-SUFFIX,nf
+DOMAIN-SUFFIX,nr
+DOMAIN-SUFFIX,nz
+DOMAIN-SUFFIX,pf
+DOMAIN-SUFFIX,pg
+DOMAIN-SUFFIX,pn
+DOMAIN-SUFFIX,pw
+DOMAIN-SUFFIX,tl
+DOMAIN-SUFFIX,vu
+DOMAIN-SUFFIX,wf

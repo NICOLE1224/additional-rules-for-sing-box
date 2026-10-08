@@ -1,0 +1,24 @@
+# Shadowrocket RULE-SET: domain predicates only; policy is supplied by the caller.
+# Source: Bank/BankHK_Domain.yaml
+# Upstream commit: 0dff7831cdebc155ef57998fcd88ed20d977f788
+# Unsupported predicates excluded: 3; see manifest.json.
+DOMAIN,accdn.lpsnmedia.net
+DOMAIN,collect-ap-east-1.tealiumiq.com
+DOMAIN,hk.hsbc.com
+DOMAIN,mobile.eum-appdynamics.com
+DOMAIN,yvn1g4-cdn-settings.appsflyersdk.com
+DOMAIN,yvn1g4-launches.appsflyersdk.com
+DOMAIN-SUFFIX,bochk.com
+DOMAIN-SUFFIX,cdn.zaticdn.com
+DOMAIN-SUFFIX,citibank.com.hk
+DOMAIN-SUFFIX,cmbwinglungbank.com
+DOMAIN-SUFFIX,cncbinternational.com
+DOMAIN-SUFFIX,dbs.com.hk
+DOMAIN-SUFFIX,hangseng.com
+DOMAIN-SUFFIX,hk.hsbc.com
+DOMAIN-SUFFIX,hsbc.com.hk
+DOMAIN-SUFFIX,ncb.com.hk
+DOMAIN-SUFFIX,ocbcwhhk.com
+DOMAIN-SUFFIX,sc.com
+DOMAIN-SUFFIX,sc.com.hk
+DOMAIN-SUFFIX,za.group

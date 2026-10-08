@@ -1,0 +1,8 @@
+# Shadowrocket RULE-SET: domain predicates only; policy is supplied by the caller.
+# Source: VirtualFinance/Monzo.yaml
+# Upstream commit: 0dff7831cdebc155ef57998fcd88ed20d977f788
+# Unsupported predicates excluded: 0; see manifest.json.
+DOMAIN-KEYWORD,monzo
+DOMAIN-SUFFIX,monzo.com
+DOMAIN-SUFFIX,monzo.statuspage.io
+DOMAIN-SUFFIX,ws-eu.pusher.com

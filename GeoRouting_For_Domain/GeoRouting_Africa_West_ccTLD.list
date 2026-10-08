@@ -1,0 +1,20 @@
+# Shadowrocket RULE-SET: domain predicates only; policy is supplied by the caller.
+# Source: GeoRouting_For_Domain/GeoRouting_Africa_West_ccTLD.yaml
+# Upstream commit: 0dff7831cdebc155ef57998fcd88ed20d977f788
+# Unsupported predicates excluded: 0; see manifest.json.
+DOMAIN-SUFFIX,bf
+DOMAIN-SUFFIX,bj
+DOMAIN-SUFFIX,ci
+DOMAIN-SUFFIX,cv
+DOMAIN-SUFFIX,gh
+DOMAIN-SUFFIX,gm
+DOMAIN-SUFFIX,gn
+DOMAIN-SUFFIX,gw
+DOMAIN-SUFFIX,lr
+DOMAIN-SUFFIX,ml
+DOMAIN-SUFFIX,mr
+DOMAIN-SUFFIX,ne
+DOMAIN-SUFFIX,ng
+DOMAIN-SUFFIX,sl
+DOMAIN-SUFFIX,sn
+DOMAIN-SUFFIX,tg

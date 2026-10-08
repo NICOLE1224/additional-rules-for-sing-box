@@ -1,0 +1,27 @@
+# Shadowrocket RULE-SET: domain predicates only; policy is supplied by the caller.
+# Source: Pornhub/Pornhub_No_Resolve.yaml
+# Upstream commit: 0dff7831cdebc155ef57998fcd88ed20d977f788
+# Unsupported predicates excluded: 0; see manifest.json.
+DOMAIN-KEYWORD,hanime
+DOMAIN-KEYWORD,missav.
+DOMAIN-KEYWORD,pornhub
+DOMAIN-SUFFIX,cdn.impactserving.com
+DOMAIN-SUFFIX,e-hentai.org
+DOMAIN-SUFFIX,hembed.com
+DOMAIN-SUFFIX,hls.saawsedge.com
+DOMAIN-SUFFIX,img.doppiocdn.com
+DOMAIN-SUFFIX,kbnmnl.com
+DOMAIN-SUFFIX,missav.recombee.com
+DOMAIN-SUFFIX,myavlive.com
+DOMAIN-SUFFIX,nineyu.com
+DOMAIN-SUFFIX,phncdn.com
+DOMAIN-SUFFIX,phprcdn.com
+DOMAIN-SUFFIX,pornhub-deutsch.net
+DOMAIN-SUFFIX,pornhubapparel.com
+DOMAIN-SUFFIX,pornhubpremium.com
+DOMAIN-SUFFIX,pronstore.com
+DOMAIN-SUFFIX,surrit.com
+DOMAIN-SUFFIX,xhotzcam.com
+DOMAIN-SUFFIX,xmavrtracktor.com
+DOMAIN-SUFFIX,xxxivjmp.com
+DOMAIN-SUFFIX,xxxvjmp.com

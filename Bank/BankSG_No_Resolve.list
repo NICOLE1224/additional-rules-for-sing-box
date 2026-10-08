@@ -1,0 +1,13 @@
+# Shadowrocket RULE-SET: domain predicates only; policy is supplied by the caller.
+# Source: Bank/BankSG_No_Resolve.yaml
+# Upstream commit: 0dff7831cdebc155ef57998fcd88ed20d977f788
+# Unsupported predicates excluded: 1; see manifest.json.
+DOMAIN,sg.hsbc.com
+DOMAIN-SUFFIX,cimb.com.sg
+DOMAIN-SUFFIX,citibank.com.sg
+DOMAIN-SUFFIX,dbs.com.sg
+DOMAIN-SUFFIX,hsbc.com.sg
+DOMAIN-SUFFIX,maybank2u.com.sg
+DOMAIN-SUFFIX,ocbc.com
+DOMAIN-SUFFIX,rhbgroup.com.sg
+DOMAIN-SUFFIX,uob.com.sg

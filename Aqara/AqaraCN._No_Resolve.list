@@ -1,0 +1,19 @@
+# Shadowrocket RULE-SET: domain predicates only; policy is supplied by the caller.
+# Source: Aqara/AqaraCN._No_Resolve.yaml
+# Upstream commit: 0dff7831cdebc155ef57998fcd88ed20d977f788
+# Unsupported predicates excluded: 0; see manifest.json.
+DOMAIN-KEYWORD,aqara-camera-cn.
+DOMAIN-SUFFIX,aiot-coap-cn.aqara.com
+DOMAIN-SUFFIX,aiot-coap.aqara.cn
+DOMAIN-SUFFIX,aiot-rpc-3rd.aqara.cn
+DOMAIN-SUFFIX,aiot-rpc-cn.aqara.com
+DOMAIN-SUFFIX,aiot-rpc.ankasa.cn
+DOMAIN-SUFFIX,aiot-rpc.aqara.cn
+DOMAIN-SUFFIX,cdn.aqara.cn
+DOMAIN-SUFFIX,coap-cn.aqara.com
+DOMAIN-SUFFIX,coap.aqara.cn
+DOMAIN-SUFFIX,open-cn.aqara.com
+DOMAIN-SUFFIX,opencloud.aqara.cn
+DOMAIN-SUFFIX,rpc-cn.aqara.com
+DOMAIN-SUFFIX,rpc.aqara.cn
+DOMAIN-SUFFIX,track-cn.aqara.com

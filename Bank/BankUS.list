@@ -1,0 +1,49 @@
+# Shadowrocket RULE-SET: domain predicates only; policy is supplied by the caller.
+# Source: Bank/BankUS.yaml
+# Upstream commit: 0dff7831cdebc155ef57998fcd88ed20d977f788
+# Unsupported predicates excluded: 0; see manifest.json.
+DOMAIN,us.hsbc.com
+DOMAIN-KEYWORD,bankofamerica
+DOMAIN-KEYWORD,zelle
+DOMAIN-KEYWORD,zellepay
+DOMAIN-SUFFIX,53.com
+DOMAIN-SUFFIX,ally.com
+DOMAIN-SUFFIX,americanexpress.com
+DOMAIN-SUFFIX,bankofamerica.com
+DOMAIN-SUFFIX,bbvausa.com
+DOMAIN-SUFFIX,bnymellon.com
+DOMAIN-SUFFIX,capitalone.com
+DOMAIN-SUFFIX,cathaybank.com
+DOMAIN-SUFFIX,chase.com
+DOMAIN-SUFFIX,citi.com
+DOMAIN-SUFFIX,citibank.com
+DOMAIN-SUFFIX,citigroup.com
+DOMAIN-SUFFIX,citizensbank.com
+DOMAIN-SUFFIX,comerica.com
+DOMAIN-SUFFIX,discover.com
+DOMAIN-SUFFIX,eastwest.com
+DOMAIN-SUFFIX,gobankrewards.com
+DOMAIN-SUFFIX,goldmansachs.com
+DOMAIN-SUFFIX,hsbc.com.us
+DOMAIN-SUFFIX,huntington.com
+DOMAIN-SUFFIX,jpmorganchase.com
+DOMAIN-SUFFIX,key.com
+DOMAIN-SUFFIX,morganstanley.com
+DOMAIN-SUFFIX,mtb.com
+DOMAIN-SUFFIX,northerntrust.com
+DOMAIN-SUFFIX,plaid.com
+DOMAIN-SUFFIX,pnc.com
+DOMAIN-SUFFIX,regions.com
+DOMAIN-SUFFIX,santanderbank.com
+DOMAIN-SUFFIX,schwab.com
+DOMAIN-SUFFIX,sezzle.com
+DOMAIN-SUFFIX,statestreet.com
+DOMAIN-SUFFIX,synchronybank.com
+DOMAIN-SUFFIX,truist.com
+DOMAIN-SUFFIX,trydave.com
+DOMAIN-SUFFIX,us.hsbc.com
+DOMAIN-SUFFIX,usbank.com
+DOMAIN-SUFFIX,varomoney.com
+DOMAIN-SUFFIX,velobank.com
+DOMAIN-SUFFIX,wellsfargo.com
+DOMAIN-SUFFIX,zionsbank.com

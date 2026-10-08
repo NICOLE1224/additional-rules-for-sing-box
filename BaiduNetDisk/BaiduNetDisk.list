@@ -1,0 +1,23 @@
+# Shadowrocket RULE-SET: domain predicates only; policy is supplied by the caller.
+# Source: BaiduNetDisk/BaiduNetDisk.yaml
+# Upstream commit: 0dff7831cdebc155ef57998fcd88ed20d977f788
+# Unsupported predicates excluded: 0; see manifest.json.
+DOMAIN-SUFFIX,afd.baidu.com
+DOMAIN-SUFFIX,als.baidu.com
+DOMAIN-SUFFIX,baidupcs.com
+DOMAIN-SUFFIX,d.pcs.baidu.com
+DOMAIN-SUFFIX,diskapi.baidu.com
+DOMAIN-SUFFIX,fyb-2.cdn.bcebos.com
+DOMAIN-SUFFIX,gips1.baidu.com
+DOMAIN-SUFFIX,h2tcbox.baidu.com
+DOMAIN-SUFFIX,himg.bdimg.com
+DOMAIN-SUFFIX,hm.baidu.com
+DOMAIN-SUFFIX,hmma.baidu.com
+DOMAIN-SUFFIX,httpsdns.baidu.com
+DOMAIN-SUFFIX,mbd.baidu.com
+DOMAIN-SUFFIX,netdisk.baidu.com
+DOMAIN-SUFFIX,pan.baidu.com
+DOMAIN-SUFFIX,panpic.baidu.com
+DOMAIN-SUFFIX,sofire.baidu.com
+DOMAIN-SUFFIX,ss0.bdstatic.com
+DOMAIN-SUFFIX,wangpan.lcs.baidu.com

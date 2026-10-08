@@ -1,0 +1,32 @@
+# Shadowrocket RULE-SET: domain predicates only; policy is supplied by the caller.
+# Source: HijackingPlus/HijackingPlus.yaml
+# Upstream commit: 0dff7831cdebc155ef57998fcd88ed20d977f788
+# Unsupported predicates excluded: 0; see manifest.json.
+DOMAIN,api.installer.xiaomi.com
+DOMAIN,tracking.india.miui.com
+DOMAIN,tracking.intl.miui.com
+DOMAIN,tracking.miui.com
+DOMAIN,tracking.rus.miui.com
+DOMAIN-KEYWORD,chanct
+DOMAIN-KEYWORD,fqzpt
+DOMAIN-KEYWORD,fzlm
+DOMAIN-KEYWORD,gjfzpt
+DOMAIN-KEYWORD,ifcert.cn
+DOMAIN-SUFFIX,anva.org.cn
+DOMAIN-SUFFIX,cert.org.cn
+DOMAIN-SUFFIX,certlab.org
+DOMAIN-SUFFIX,china-bestmind.com
+DOMAIN-SUFFIX,cnvd.org.cn
+DOMAIN-SUFFIX,fanzha.org.cn
+DOMAIN-SUFFIX,fhss.com.cn
+DOMAIN-SUFFIX,hailiangyun.cn
+DOMAIN-SUFFIX,hei-tong.com
+DOMAIN-SUFFIX,hicore-auth.com
+DOMAIN-SUFFIX,himindtech.com
+DOMAIN-SUFFIX,i-bestmind.com
+DOMAIN-SUFFIX,ics-cert.org.cn
+DOMAIN-SUFFIX,ifcert.cn
+DOMAIN-SUFFIX,ifcert.com
+DOMAIN-SUFFIX,ifcert.org.cn
+DOMAIN-SUFFIX,loongteam.com
+DOMAIN-SUFFIX,t-bestmind.com

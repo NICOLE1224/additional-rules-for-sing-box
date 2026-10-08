@@ -1,0 +1,44 @@
+# Shadowrocket RULE-SET: domain predicates only; policy is supplied by the caller.
+# Source: HomeIP/HomeIPJP_No_Resolve.yaml
+# Upstream commit: 0dff7831cdebc155ef57998fcd88ed20d977f788
+# Unsupported predicates excluded: 0; see manifest.json.
+DOMAIN-SUFFIX,1pondo.tv
+DOMAIN-SUFFIX,abema.tv
+DOMAIN-SUFFIX,amazon.co.jp
+DOMAIN-SUFFIX,animestore.docomo.ne.jp
+DOMAIN-SUFFIX,awa.fm
+DOMAIN-SUFFIX,b-ch.com
+DOMAIN-SUFFIX,books.rakuten.co.jp
+DOMAIN-SUFFIX,caribbeancom.com
+DOMAIN-SUFFIX,collection-mall.com
+DOMAIN-SUFFIX,dazn.com
+DOMAIN-SUFFIX,dlsite.com
+DOMAIN-SUFFIX,dmm.co.jp
+DOMAIN-SUFFIX,dmm.com
+DOMAIN-SUFFIX,ebookjapan.yahoo.co.jp
+DOMAIN-SUFFIX,fanza.co.jp
+DOMAIN-SUFFIX,fc2.com
+DOMAIN-SUFFIX,fod.fujitv.co.jp
+DOMAIN-SUFFIX,heyzo.com
+DOMAIN-SUFFIX,honto.jp
+DOMAIN-SUFFIX,hulu.jp
+DOMAIN-SUFFIX,javlibrary.com
+DOMAIN-SUFFIX,jcom.co.jp
+DOMAIN-SUFFIX,jod.jsports.co.jp
+DOMAIN-SUFFIX,kinokuniya.co.jp
+DOMAIN-SUFFIX,lemino.docomo.ne.jp
+DOMAIN-SUFFIX,mucome.net
+DOMAIN-SUFFIX,music.dmkt-sp.jp
+DOMAIN-SUFFIX,music.line.me
+DOMAIN-SUFFIX,musicstore.auone.jp
+DOMAIN-SUFFIX,nhk-ondemand.jp
+DOMAIN-SUFFIX,paravi.jp
+DOMAIN-SUFFIX,plus.nhk.jp
+DOMAIN-SUFFIX,radiko.jp
+DOMAIN-SUFFIX,spoox.jp
+DOMAIN-SUFFIX,telasa.jp
+DOMAIN-SUFFIX,tokyohot.com
+DOMAIN-SUFFIX,tv.dmm.com
+DOMAIN-SUFFIX,tver.jp
+DOMAIN-SUFFIX,unext.jp
+DOMAIN-SUFFIX,wod.wowow.co.jp

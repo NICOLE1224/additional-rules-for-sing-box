@@ -1,0 +1,6 @@
+# OPTIONAL Shadowrocket DOMAIN-WILDCARD supplement; subscribe separately.
+# WARNING: glob matching may cover more domains than the original Clash patterns.
+# Source: Bank/BankUK_Domain.yaml
+# Upstream commit: 0dff7831cdebc155ef57998fcd88ed20d977f788
+DOMAIN-WILDCARD,*.vam-uk.*.vv1865.com
+DOMAIN-WILDCARD,vam-uk.*.vv1865.com

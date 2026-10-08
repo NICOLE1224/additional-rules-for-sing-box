@@ -1,0 +1,15 @@
+# Shadowrocket RULE-SET: domain predicates only; policy is supplied by the caller.
+# Source: AppleNews/AppleNews_Domain.yaml
+# Upstream commit: 0dff7831cdebc155ef57998fcd88ed20d977f788
+# Unsupported predicates excluded: 0; see manifest.json.
+DOMAIN-SUFFIX,apple.news
+DOMAIN-SUFFIX,news-assets.apple.com
+DOMAIN-SUFFIX,news-client-search.apple.com
+DOMAIN-SUFFIX,news-client.apple.com
+DOMAIN-SUFFIX,news-edge.apple.com
+DOMAIN-SUFFIX,news-events.apple.com
+DOMAIN-SUFFIX,news-sports-events.apple.com
+DOMAIN-SUFFIX,news-sports.apple.com
+DOMAIN-SUFFIX,news-todayconfig-edge.apple.com
+DOMAIN-SUFFIX,newsletter-edge.apple.com
+DOMAIN-SUFFIX,smoot.apple.com

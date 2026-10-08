@@ -1,0 +1,18 @@
+# Shadowrocket RULE-SET: domain predicates only; policy is supplied by the caller.
+# Source: Bank/BankAU.yaml
+# Upstream commit: 0dff7831cdebc155ef57998fcd88ed20d977f788
+# Unsupported predicates excluded: 1; see manifest.json.
+DOMAIN,au.hsbc.com
+DOMAIN-SUFFIX,amp.com.au
+DOMAIN-SUFFIX,anz.com.au
+DOMAIN-SUFFIX,bankwest.com.au
+DOMAIN-SUFFIX,bendigobank.com.au
+DOMAIN-SUFFIX,boq.com.au
+DOMAIN-SUFFIX,citi.com.au
+DOMAIN-SUFFIX,citibank.com.au
+DOMAIN-SUFFIX,commbank.com.au
+DOMAIN-SUFFIX,hsbc.com.au
+DOMAIN-SUFFIX,macquarie.com.au
+DOMAIN-SUFFIX,nab.com.au
+DOMAIN-SUFFIX,suncorp.com.au
+DOMAIN-SUFFIX,westpac.com.au

@@ -1,0 +1,53 @@
+# Shadowrocket RULE-SET: domain predicates only; policy is supplied by the caller.
+# Source: PreRepairEasyPrivacy/PreRepairEasyPrivacy.yaml
+# Upstream commit: 0dff7831cdebc155ef57998fcd88ed20d977f788
+# Unsupported predicates excluded: 0; see manifest.json.
+DOMAIN,adnet.qq.com
+DOMAIN,click.simba.taobao.com
+DOMAIN,sso.e.qq.com
+DOMAIN,svc2.sc.com
+DOMAIN,ufosdk.baidu.com
+DOMAIN-KEYWORD,.analytics.com
+DOMAIN-KEYWORD,17track
+DOMAIN-KEYWORD,amdc.m.taobao.com
+DOMAIN-KEYWORD,analytics.
+DOMAIN-KEYWORD,app-analytics
+DOMAIN-KEYWORD,app-log.
+DOMAIN-KEYWORD,applog.
+DOMAIN-KEYWORD,aqara.com
+DOMAIN-KEYWORD,cdn-tos-ncdn.bytegecko.com
+DOMAIN-KEYWORD,dcd-cdn-tos.bytegecko.com
+DOMAIN-KEYWORD,dmallcdn
+DOMAIN-KEYWORD,guide-acs.taobao.com
+DOMAIN-KEYWORD,ios-log.
+DOMAIN-KEYWORD,ioslog.
+DOMAIN-KEYWORD,mairuan.com
+DOMAIN-KEYWORD,pc-log.
+DOMAIN-KEYWORD,pclog.
+DOMAIN-KEYWORD,piaohua.com
+DOMAIN-KEYWORD,todesk.com
+DOMAIN-KEYWORD,webcast-cdn-tos-ncdn.bytegecko.com
+DOMAIN-KEYWORD,webcast-cdn-tos.bytegecko.com
+DOMAIN-SUFFIX,admob.com
+DOMAIN-SUFFIX,adsense.com
+DOMAIN-SUFFIX,appsupport.qq.com
+DOMAIN-SUFFIX,bgg.baidu.com
+DOMAIN-SUFFIX,bsrv.qq.com
+DOMAIN-SUFFIX,byteimg.com
+DOMAIN-SUFFIX,click.redditmail.com
+DOMAIN-SUFFIX,event.toggle.qq.com
+DOMAIN-SUFFIX,fclog.baidu.com
+DOMAIN-SUFFIX,hector.baidu.com
+DOMAIN-SUFFIX,hectorstatic.baidu.com
+DOMAIN-SUFFIX,hm.baidu.com
+DOMAIN-SUFFIX,i4.cn
+DOMAIN-SUFFIX,ios-pclog.i4.cn
+DOMAIN-SUFFIX,msftconnecttest.com
+DOMAIN-SUFFIX,msftncsi.com
+DOMAIN-SUFFIX,p.s.360.cn
+DOMAIN-SUFFIX,pclog.i4.cn
+DOMAIN-SUFFIX,qchannel01.cn
+DOMAIN-SUFFIX,qchannel02.cn
+DOMAIN-SUFFIX,qchannel03.cn
+DOMAIN-SUFFIX,tcbox.baidu.com
+DOMAIN-SUFFIX,www.googleadservices.com

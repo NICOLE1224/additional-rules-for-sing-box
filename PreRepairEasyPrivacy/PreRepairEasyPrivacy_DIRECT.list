@@ -1,0 +1,32 @@
+# Shadowrocket RULE-SET: domain predicates only; policy is supplied by the caller.
+# Source: PreRepairEasyPrivacy/PreRepairEasyPrivacy_DIRECT.yaml
+# Upstream commit: 0dff7831cdebc155ef57998fcd88ed20d977f788
+# Unsupported predicates excluded: 0; see manifest.json.
+DOMAIN,adnet.qq.com
+DOMAIN,click.simba.taobao.com
+DOMAIN,sso.e.qq.com
+DOMAIN,svc2.sc.com
+DOMAIN,ufosdk.baidu.com
+DOMAIN-KEYWORD,17track
+DOMAIN-KEYWORD,aqara.com
+DOMAIN-KEYWORD,cdn-tos-ncdn.bytegecko.com
+DOMAIN-KEYWORD,dcd-cdn-tos.bytegecko.com
+DOMAIN-KEYWORD,dmallcdn
+DOMAIN-KEYWORD,mairuan.com
+DOMAIN-KEYWORD,piaohua.com
+DOMAIN-KEYWORD,todesk.com
+DOMAIN-KEYWORD,webcast-cdn-tos-ncdn.bytegecko.com
+DOMAIN-KEYWORD,webcast-cdn-tos.bytegecko.com
+DOMAIN-SUFFIX,appsupport.qq.com
+DOMAIN-SUFFIX,bsrv.qq.com
+DOMAIN-SUFFIX,byteimg.com
+DOMAIN-SUFFIX,event.toggle.qq.com
+DOMAIN-SUFFIX,i4.cn
+DOMAIN-SUFFIX,ios-pclog.i4.cn
+DOMAIN-SUFFIX,msftconnecttest.com
+DOMAIN-SUFFIX,msftncsi.com
+DOMAIN-SUFFIX,p.s.360.cn
+DOMAIN-SUFFIX,pclog.i4.cn
+DOMAIN-SUFFIX,qchannel01.cn
+DOMAIN-SUFFIX,qchannel02.cn
+DOMAIN-SUFFIX,qchannel03.cn

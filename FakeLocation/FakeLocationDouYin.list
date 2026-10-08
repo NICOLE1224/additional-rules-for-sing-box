@@ -1,0 +1,9 @@
+# Shadowrocket RULE-SET: domain predicates only; policy is supplied by the caller.
+# Source: FakeLocation/FakeLocationDouYin.yaml
+# Upstream commit: 0dff7831cdebc155ef57998fcd88ed20d977f788
+# Unsupported predicates excluded: 0; see manifest.json.
+DOMAIN,sso.douyin.com
+DOMAIN,www.douyin.com
+DOMAIN-SUFFIX,api6-core-lf.amemv.com
+DOMAIN-SUFFIX,snssdk.com
+DOMAIN-SUFFIX,toutiaoapi.com

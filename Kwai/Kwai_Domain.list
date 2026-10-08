@@ -1,0 +1,16 @@
+# Shadowrocket RULE-SET: domain predicates only; policy is supplied by the caller.
+# Source: Kwai/Kwai_Domain.yaml
+# Upstream commit: 0dff7831cdebc155ef57998fcd88ed20d977f788
+# Unsupported predicates excluded: 0; see manifest.json.
+DOMAIN-SUFFIX,akamai.net
+DOMAIN-SUFFIX,ap4r.com
+DOMAIN-SUFFIX,appsflyersdk.com
+DOMAIN-SUFFIX,config-proxy.kwd.100.app
+DOMAIN-SUFFIX,kwai-pro.com
+DOMAIN-SUFFIX,kwai.net
+DOMAIN-SUFFIX,kwai.net.cdn20.com
+DOMAIN-SUFFIX,kwai.net.queniuco.com
+DOMAIN-SUFFIX,kwai.net.queniulf.com
+DOMAIN-SUFFIX,kwaionline.com
+DOMAIN-SUFFIX,kwaipros.com
+DOMAIN-SUFFIX,mythad.com

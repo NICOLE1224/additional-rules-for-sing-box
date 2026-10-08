@@ -1,0 +1,31 @@
+# Shadowrocket RULE-SET: domain predicates only; policy is supplied by the caller.
+# Source: Bank/BankUK.yaml
+# Upstream commit: 0dff7831cdebc155ef57998fcd88ed20d977f788
+# Unsupported predicates excluded: 1; see manifest.json.
+DOMAIN,uk.hsbc.com
+DOMAIN-SUFFIX,aldermore.co.uk
+DOMAIN-SUFFIX,atombank.com
+DOMAIN-SUFFIX,barclays.co.uk
+DOMAIN-SUFFIX,chartersavingsbank.co.uk
+DOMAIN-SUFFIX,co-operativebank.co.uk
+DOMAIN-SUFFIX,gatehousebank.com
+DOMAIN-SUFFIX,hampdenandco.com
+DOMAIN-SUFFIX,hsbc.co.uk
+DOMAIN-SUFFIX,ifastcorp.com
+DOMAIN-SUFFIX,ifastgb.com
+DOMAIN-SUFFIX,ikano.co.uk
+DOMAIN-SUFFIX,investec.com
+DOMAIN-SUFFIX,lloydsbank.com
+DOMAIN-SUFFIX,metrobankonline.co.uk
+DOMAIN-SUFFIX,nationwide.co.uk
+DOMAIN-SUFFIX,natwest.com
+DOMAIN-SUFFIX,paragonbank.co.uk
+DOMAIN-SUFFIX,pcf.bank
+DOMAIN-SUFFIX,santander.co.uk
+DOMAIN-SUFFIX,sc.co.uk
+DOMAIN-SUFFIX,securetrustbank.com
+DOMAIN-SUFFIX,shawbrook.co.uk
+DOMAIN-SUFFIX,starlingbank.com
+DOMAIN-SUFFIX,tescobank.com
+DOMAIN-SUFFIX,tsb.co.uk
+DOMAIN-SUFFIX,virginmoneyukplc.com

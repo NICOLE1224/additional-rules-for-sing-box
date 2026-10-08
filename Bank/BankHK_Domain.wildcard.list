@@ -1,0 +1,10 @@
+# OPTIONAL Shadowrocket DOMAIN-WILDCARD supplement; subscribe separately.
+# WARNING: glob matching may cover more domains than the original Clash patterns.
+# Source: Bank/BankHK_Domain.yaml
+# Upstream commit: 0dff7831cdebc155ef57998fcd88ed20d977f788
+DOMAIN-WILDCARD,*.standchartbank.*.*
+DOMAIN-WILDCARD,*.standchartbank.*.*.*
+DOMAIN-WILDCARD,*.vam-hk.*.vv1865.com
+DOMAIN-WILDCARD,standchartbank.*.*
+DOMAIN-WILDCARD,standchartbank.*.*.*
+DOMAIN-WILDCARD,vam-hk.*.vv1865.com

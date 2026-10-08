@@ -1,0 +1,40 @@
+# Shadowrocket RULE-SET: domain predicates only; policy is supplied by the caller.
+# Source: Aqara/AqaraGlobal._Domain.yaml
+# Upstream commit: 0dff7831cdebc155ef57998fcd88ed20d977f788
+# Unsupported predicates excluded: 0; see manifest.json.
+DOMAIN-SUFFIX,aiot-coap-au.aqara.com
+DOMAIN-SUFFIX,aiot-coap-ger.aqara.com
+DOMAIN-SUFFIX,aiot-coap-kr.aqara.com
+DOMAIN-SUFFIX,aiot-coap-ru.aqara.com
+DOMAIN-SUFFIX,aiot-coap-sg.aqara.com
+DOMAIN-SUFFIX,aiot-coap-usa.aqara.com
+DOMAIN-SUFFIX,aiot-rpc-au.aqara.com
+DOMAIN-SUFFIX,aiot-rpc-ger.aqara.com
+DOMAIN-SUFFIX,aiot-rpc-kr.aqara.com
+DOMAIN-SUFFIX,aiot-rpc-ru.aqara.com
+DOMAIN-SUFFIX,aiot-rpc-sg.aqara.com
+DOMAIN-SUFFIX,aiot-rpc-usa.aqara.com
+DOMAIN-SUFFIX,cdn.aqara.com
+DOMAIN-SUFFIX,coap-au.aqara.com
+DOMAIN-SUFFIX,coap-ger.aqara.com
+DOMAIN-SUFFIX,coap-kr.aqara.com
+DOMAIN-SUFFIX,coap-ru.aqara.com
+DOMAIN-SUFFIX,coap-sg.aqara.com
+DOMAIN-SUFFIX,coap-usa.aqara.com
+DOMAIN-SUFFIX,open-au.aqara.com
+DOMAIN-SUFFIX,open-ger.aqara.com
+DOMAIN-SUFFIX,open-kr.aqara.com
+DOMAIN-SUFFIX,open-ru.aqara.com
+DOMAIN-SUFFIX,open-sg.aqara.com
+DOMAIN-SUFFIX,open-usa.aqara.com
+DOMAIN-SUFFIX,rpc-au.aqara.com
+DOMAIN-SUFFIX,rpc-ger.aqara.com
+DOMAIN-SUFFIX,rpc-kr.aqara.com
+DOMAIN-SUFFIX,rpc-ru.aqara.com
+DOMAIN-SUFFIX,rpc-sg.aqara.com
+DOMAIN-SUFFIX,rpc-usa.aqara.com
+DOMAIN-SUFFIX,track-au.aqara.com
+DOMAIN-SUFFIX,track-ger.aqara.com
+DOMAIN-SUFFIX,track-ru.aqara.com
+DOMAIN-SUFFIX,track-sg.aqara.com
+DOMAIN-SUFFIX,track-us.aqara.com

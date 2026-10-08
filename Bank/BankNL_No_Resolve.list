@@ -1,0 +1,14 @@
+# Shadowrocket RULE-SET: domain predicates only; policy is supplied by the caller.
+# Source: Bank/BankNL_No_Resolve.yaml
+# Upstream commit: 0dff7831cdebc155ef57998fcd88ed20d977f788
+# Unsupported predicates excluded: 0; see manifest.json.
+DOMAIN-SUFFIX,abnamro.com
+DOMAIN-SUFFIX,bankofscotland.nl
+DOMAIN-SUFFIX,bngbank.nl
+DOMAIN-SUFFIX,devolksbank.nl
+DOMAIN-SUFFIX,ing.com
+DOMAIN-SUFFIX,leaseplan.com
+DOMAIN-SUFFIX,nibc.com
+DOMAIN-SUFFIX,rabobank.com
+DOMAIN-SUFFIX,triodos.com
+DOMAIN-SUFFIX,vanlanschotkempen.com

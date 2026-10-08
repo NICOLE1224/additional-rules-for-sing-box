@@ -1,0 +1,21 @@
+# Shadowrocket RULE-SET: domain predicates only; policy is supplied by the caller.
+# Source: Alipan/Alipan.yaml
+# Upstream commit: 0dff7831cdebc155ef57998fcd88ed20d977f788
+# Unsupported predicates excluded: 0; see manifest.json.
+DOMAIN-SUFFIX,alicdn.com
+DOMAIN-SUFFIX,alipan.com
+DOMAIN-SUFFIX,aliyundrive.com
+DOMAIN-SUFFIX,aliyundrive.net
+DOMAIN-SUFFIX,arms-retcode.aliyuncs.com
+DOMAIN-SUFFIX,beacon-api.aliyuncs.com
+DOMAIN-SUFFIX,data.alicloudccp.com
+DOMAIN-SUFFIX,fourier.alibaba.com
+DOMAIN-SUFFIX,httpdns-api.aliyuncs.com
+DOMAIN-SUFFIX,httpdns-sc.aliyuncs.com
+DOMAIN-SUFFIX,httpdns.alicdn.com
+DOMAIN-SUFFIX,httpdns.aliyun.com
+DOMAIN-SUFFIX,httpdns.aliyuncs.com
+DOMAIN-SUFFIX,httpdns.console.aliyun.com
+DOMAIN-SUFFIX,oss-enet.aliyuncs.com
+DOMAIN-SUFFIX,unpm-upaas.uc.cn
+DOMAIN-SUFFIX,userver-upaas.uc.cn

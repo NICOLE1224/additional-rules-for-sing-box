@@ -1,0 +1,28 @@
+# OPTIONAL Shadowrocket DOMAIN-WILDCARD supplement; subscribe separately.
+# WARNING: glob matching may cover more domains than the original Clash patterns.
+# Source: Gemini/Gemini_Domain.yaml
+# Upstream commit: 0dff7831cdebc155ef57998fcd88ed20d977f788
+DOMAIN-WILDCARD,*.colab.*
+DOMAIN-WILDCARD,*.colab.*.*
+DOMAIN-WILDCARD,*.colab.*.*.*
+DOMAIN-WILDCARD,*.colab.*.*.*.*
+DOMAIN-WILDCARD,*.developerprofiles.*
+DOMAIN-WILDCARD,*.developerprofiles.*.*
+DOMAIN-WILDCARD,*.developerprofiles.*.*.*
+DOMAIN-WILDCARD,*.developerprofiles.*.*.*.*
+DOMAIN-WILDCARD,*.generativelanguage.*
+DOMAIN-WILDCARD,*.generativelanguage.*.*
+DOMAIN-WILDCARD,*.generativelanguage.*.*.*
+DOMAIN-WILDCARD,*.generativelanguage.*.*.*.*
+DOMAIN-WILDCARD,colab.*
+DOMAIN-WILDCARD,colab.*.*
+DOMAIN-WILDCARD,colab.*.*.*
+DOMAIN-WILDCARD,colab.*.*.*.*
+DOMAIN-WILDCARD,developerprofiles.*
+DOMAIN-WILDCARD,developerprofiles.*.*
+DOMAIN-WILDCARD,developerprofiles.*.*.*
+DOMAIN-WILDCARD,developerprofiles.*.*.*.*
+DOMAIN-WILDCARD,generativelanguage.*
+DOMAIN-WILDCARD,generativelanguage.*.*
+DOMAIN-WILDCARD,generativelanguage.*.*.*
+DOMAIN-WILDCARD,generativelanguage.*.*.*.*
