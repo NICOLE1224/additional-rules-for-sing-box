@@ -23,6 +23,10 @@
 
 三份产物来自同一上游提交，使用 `git push --atomic` 一次更新三个分支。转换、检查或推送失败时不发布部分更新；原分支历史保留，不强制推送。上游删除的文件会在下一次成功更新时从产物分支删除。
 
+发布后，`scripts/verify_published.py` 检查三个远端分支的提交均为本次发布提交，并逐一比较分支中的全部文件与构建目录的 Git blob 哈希、路径和文件模式。缺少文件、多出文件、内容不同或某个分支未发布，都会使工作流失败。运行摘要列出各分支的规则文件数量和提交；下载产物明确包含 `json/`、`srs/`、`shadowrocket/` 三个目录，包括可选通配符补充文件。
+
+工作流中的 Action 固定到经过核对的完整提交 SHA，当前版本为 `actions/checkout v7.0.1`、`actions/setup-python v7.0.0`、`actions/upload-artifact v7.0.2`，均声明使用 Node 24，运行于 GitHub 托管的 `ubuntu-latest`。GitHub 已于 2026-09-23 移除 Actions 的 Node 20 运行时，版本迁移依据见 [官方公告](https://github.blog/changelog/2026-09-23-node-20-is-no-longer-available-in-github-actions/)。升级 Action 时，应核对其稳定发布、`action.yml` 的 `runs.using`、输入兼容性及对应提交 SHA，再实际运行完整发布流程。
+
 ## 检测上游更新
 
 Actions 每 6 小时检查上游 `main` 的提交；**上游提交和转换器构建指纹均未变化时，跳过依赖安装、转换、编译和发布，不创建空提交**。转换器代码或配置变化也会触发重建。首次运行或任一产物分支缺失时会构建。

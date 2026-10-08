@@ -1,7 +1,7 @@
 {
   "upstream_repository": "https://github.com/Accademia/Additional_Rule_For_Clash",
   "upstream_commit": "0dff7831cdebc155ef57998fcd88ed20d977f788",
-  "build_fingerprint": "a4b6cb1c3dbf42ad15c575edf184a2cc62191952e0ffc41a011b8ab96ef82208",
+  "build_fingerprint": "b96a232c8babab4db3029b4c073220b52a88ff0bf5e038c257f1ec846fdbf9b5",
   "sing_box_version": "1.14.2",
   "rule_set_version": 2,
   "source_files": 248,
