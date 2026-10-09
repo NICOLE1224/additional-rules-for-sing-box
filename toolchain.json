@@ -3,5 +3,14 @@
   "upstream_ref": "main",
   "sing_box_version": "1.14.2",
   "sing_box_linux_amd64_sha256": "a684484d7477d1437282ee411f4d131d0340aaad60a7868841ebd5d87dd8a0c6",
-  "rule_set_version": 2
+  "rule_set_version": 2,
+  "google_cn": {
+    "repository": "https://github.com/MetaCubeX/meta-rules-dat",
+    "ref": "sing",
+    "path": "geo/geosite/google@cn.json",
+    "exclude": "Gemini/Gemini.yaml",
+    "output": "Google/google@cn_no_gemini",
+    "license_revision": "4178770badecb1b349fbcd62c737e0d7a2079729",
+    "license_sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+  }
 }

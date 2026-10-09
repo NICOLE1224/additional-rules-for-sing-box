@@ -13,6 +13,7 @@ on:
       - 'requirements.txt'
       - 'toolchain.json'
       - 'known_invalid.json'
+      - 'licenses/**'
       - 'README.md'
       - '.github/workflows/**'
 
@@ -34,7 +35,7 @@ jobs:
       - name: Checkout converter
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1; Node 24
 
-      - name: Check upstream and published manifests
+      - name: Check both upstream inputs and published manifests
         id: upstream
         run: python3 scripts/check_upstream.py
 
@@ -68,7 +69,7 @@ jobs:
 
       - name: Build JSON, SRS and Shadowrocket rule-sets and validate binaries
         if: steps.upstream.outputs.changed == 'true'
-        run: python scripts/convert.py --source upstream --output dist
+        run: python scripts/convert.py --source upstream --output dist --google-cn-input .tools/google-cn
 
       - name: Save downloadable build artifacts
         if: steps.upstream.outputs.changed == 'true'

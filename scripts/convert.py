@@ -15,6 +15,7 @@ from urllib.parse import quote
 import yaml
 
 from check_upstream import BRANCHES, ROOT, fingerprint, git
+from google_cn import fetch_snapshot, load_snapshot, subtract
 
 FIELDS = {"DOMAIN": "domain", "DOMAIN-SUFFIX": "domain_suffix",
           "DOMAIN-KEYWORD": "domain_keyword", "DOMAIN-REGEX": "domain_regex"}
@@ -203,7 +204,69 @@ def run(*args):
     return (result.stdout + result.stderr).strip()
 
 
-def build(source_dir, output, compiler):
+def build_google_cn(staging, source_dir, input_dir, compiler, config, outputs, shadowrocket_paths):
+    base, metadata, ignored = load_snapshot(config, input_dir)
+    exclude_path = source_dir / config["google_cn"]["exclude"]
+    payload = yaml.load(exclude_path.read_text(encoding="utf-8-sig"), Loader=UniqueLoader)["payload"]
+    excluded, *_ = convert_payload(payload, config["google_cn"]["exclude"], set())
+    retained, logical, lines, removed, unsupported, guarded = subtract(base, excluded)
+    stem = Path(config["google_cn"]["output"])
+    if stem.is_absolute() or ".." in stem.parts:
+        raise ValueError("Invalid derived rule-set output path")
+    json_relative, srs_relative, list_relative = (stem.with_suffix(s) for s in (".json", ".srs", ".list"))
+    if json_relative in outputs or list_relative in shadowrocket_paths:
+        raise ValueError("Derived rule-set filename collision")
+    outputs.add(json_relative)
+    json_path, srs_path = staging / "json" / json_relative, staging / "srs" / srs_relative
+    write_json(json_path, {"version": config["rule_set_version"], "rules": [logical]})
+    srs_path.parent.mkdir(parents=True, exist_ok=True)
+    run(str(compiler), "rule-set", "compile", "--output", str(srs_path), str(json_path))
+    if srs_path.read_bytes()[:4] != b"SRS\x02":
+        raise ValueError("Unexpected derived binary version")
+    source = "MetaCubeX/meta-rules-dat/" + metadata["path"]
+    record = {"source": source, "source_sha256": metadata["sha256"], "status": "converted",
+              "input_entries": sum(map(len, base.values())), "unique_entries": sum(map(len, retained.values())),
+              "json": json_relative.as_posix(), "srs": srs_relative.as_posix(),
+              "json_sha256": hashlib.sha256(json_path.read_bytes()).hexdigest(),
+              "srs_sha256": hashlib.sha256(srs_path.read_bytes()).hexdigest(),
+              "derivation": {"operation": "google@cn AND NOT Gemini", "excluded_source": config["google_cn"]["exclude"],
+                             "excluded_source_sha256": hashlib.sha256(exclude_path.read_bytes()).hexdigest(),
+                             "removed_entries": removed, "retained_by_type": {k: len(v) for k, v in retained.items()},
+                             "shadowrocket_guarded_entries": guarded},
+              "ignored_types": ignored, "shadowrocket_unique_entries": len(lines),
+              "shadowrocket_excluded_from_primary_entries": len(unsupported),
+              "shadowrocket_unrepresented_entries": len(unsupported), "shadowrocket_wildcard_unique_entries": 0,
+              "shadowrocket_wildcard_covered_predicates": 0,
+              "shadowrocket_status": "converted" if lines else "no_supported_domain_rules"}
+    if lines:
+        shadowrocket_paths.add(list_relative)
+        list_path = staging / "shadowrocket" / list_relative
+        list_path.parent.mkdir(parents=True, exist_ok=True)
+        header = ["# Derived Shadowrocket RULE-SET: google@cn minus Gemini/Gemini.yaml; domain predicates only.",
+                  f"# Google CN commit: {metadata['commit']}; input SHA-256: {metadata['sha256']}",
+                  f"# Fully covered predicates removed: {len(removed)}; unsupported predicates omitted: {len(unsupported)}.",
+                  "# See manifest.json for details. Arbitrary regexes are not approximated by wildcard rules."]
+        list_path.write_text("\n".join(header + lines) + "\n", encoding="utf-8")
+        record.update(shadowrocket=list_relative.as_posix(), shadowrocket_sha256=hashlib.sha256(list_path.read_bytes()).hexdigest())
+    license_path = ROOT / "licenses/LICENSE.meta-rules-dat"
+    if hashlib.sha256(license_path.read_bytes()).hexdigest() != config["google_cn"]["license_sha256"]:
+        raise ValueError("MetaCubeX source license checksum mismatch")
+    for branch in BRANCHES:
+        provenance = staging / branch / "SOURCE.google-cn"
+        provenance.mkdir(parents=True, exist_ok=True)
+        (provenance / "Google.input.json.txt").write_bytes((input_dir / "input.json").read_bytes())
+        (provenance / "Gemini.input.yaml.txt").write_bytes(exclude_path.read_bytes())
+        write_json(provenance / "provenance.json.txt", {"google_cn_source": metadata, "derivation": record["derivation"],
+                   "license_repository": config["google_cn"]["repository"],
+                   "license_revision": config["google_cn"]["license_revision"],
+                   "license_sha256": config["google_cn"]["license_sha256"]})
+        shutil.copy2(license_path, staging / branch / "LICENSE.meta-rules-dat")
+    issues = [{"source": source, **item, "status": "excluded_shadowrocket_primary", "wildcard_supplement_available": False}
+              for item in unsupported]
+    return record, metadata, issues
+
+
+def build(source_dir, output, compiler, google_cn_input=None):
     source_dir, output = source_dir.resolve(), output.resolve()
     if output.exists():
         raise ValueError(f"Output already exists; use a new directory: {output}")
@@ -293,6 +356,13 @@ def build(source_dir, output, compiler):
             sources.append(record)
         if not outputs:
             raise ValueError("No domain rule-sets were produced")
+        derived, google_cn_source = [], None
+        if google_cn_input is not None:
+            record, google_cn_source, derived_issues = build_google_cn(
+                staging, source_dir, google_cn_input.resolve(), compiler, config, outputs, shadowrocket_paths)
+            derived.append(record)
+            issues.extend(derived_issues)
+        all_records = sources + derived
         # Use the official parser to validate every binary, including Go regexp syntax.
         check_config = staging / "check.json"
         write_json(check_config, {"route": {"rule_set": [
@@ -304,15 +374,17 @@ def build(source_dir, output, compiler):
         manifest = {"upstream_repository": config["upstream_repository"], "upstream_commit": upstream_commit,
                     "build_fingerprint": fingerprint(), "sing_box_version": config["sing_box_version"],
                     "rule_set_version": config["rule_set_version"], "source_files": len(files),
-                    "generated_rule_sets": len(outputs),
-                    "shadowrocket": {"generated_rule_sets": sum("shadowrocket" in r for r in sources),
-                                     "unique_entries": sum(r["shadowrocket_unique_entries"] for r in sources),
-                                     "excluded_from_primary_entries": sum(r["shadowrocket_excluded_from_primary_entries"] for r in sources),
-                                     "generated_wildcard_rule_sets": sum("shadowrocket_wildcard" in r for r in sources),
-                                     "wildcard_unique_entries": sum(r["shadowrocket_wildcard_unique_entries"] for r in sources),
-                                     "wildcard_covered_predicates": sum(r["shadowrocket_wildcard_covered_predicates"] for r in sources),
-                                     "unrepresented_entries": sum(r["shadowrocket_unrepresented_entries"] for r in sources)},
+                    "generated_rule_sets": len(outputs), "derived_rule_sets": derived,
+                    "shadowrocket": {"generated_rule_sets": sum("shadowrocket" in r for r in all_records),
+                                     "unique_entries": sum(r["shadowrocket_unique_entries"] for r in all_records),
+                                     "excluded_from_primary_entries": sum(r["shadowrocket_excluded_from_primary_entries"] for r in all_records),
+                                     "generated_wildcard_rule_sets": sum("shadowrocket_wildcard" in r for r in all_records),
+                                     "wildcard_unique_entries": sum(r["shadowrocket_wildcard_unique_entries"] for r in all_records),
+                                     "wildcard_covered_predicates": sum(r["shadowrocket_wildcard_covered_predicates"] for r in all_records),
+                                     "unrepresented_entries": sum(r["shadowrocket_unrepresented_entries"] for r in all_records)},
                     "sources": sources, "issues": issues}
+        if google_cn_source is not None:
+            manifest["google_cn_source"] = google_cn_source
         for branch in BRANCHES:
             write_json(staging / branch / "manifest.json", manifest)
             shutil.copy2(source_dir / "LICENSE", staging / branch / "LICENSE.upstream")
@@ -320,7 +392,7 @@ def build(source_dir, output, compiler):
             index = [f"# {branch} 规则索引", "", f"上游提交：`{upstream_commit}`", "",
                      "该分支仅包含域名匹配条件。原始规则中的 DIRECT/REJECT 等策略需要自行配置。", "",
                      "| 上游文件 | 规则集 | 去重后条目数 |", "| --- | --- | --- |"]
-            for record in sources:
+            for record in all_records:
                 if branch in record:
                     url = record[branch]
                     count = record["shadowrocket_unique_entries"] if branch == "shadowrocket" else record["unique_entries"]
@@ -332,7 +404,7 @@ def build(source_dir, output, compiler):
                 index.extend(["", "## 可选 DOMAIN-WILDCARD 补充", "",
                               "这些文件需单独订阅。通配符可能扩大原始 Clash 规则的匹配范围，请按需启用。", "",
                               "| 上游文件 | 补充规则集 | 去重后条目数 |", "| --- | --- | --- |"])
-                for record in sources:
+                for record in all_records:
                     if "shadowrocket_wildcard" in record:
                         url = record["shadowrocket_wildcard"]
                         index.append(f"| {record['source']} | [{url}]({quote(url)}) | {record['shadowrocket_wildcard_unique_entries']} |")
@@ -349,8 +421,12 @@ def main():
     parser.add_argument("--source", type=Path, required=True)
     parser.add_argument("--output", type=Path, default=Path("dist"))
     parser.add_argument("--sing-box", type=Path, default=Path(".tools/sing-box"))
+    parser.add_argument("--google-cn-input", type=Path, help="use an existing verified snapshot instead of fetching a fresh input")
     args = parser.parse_args()
-    build(args.source, args.output, args.sing_box.resolve())
+    input_dir = args.google_cn_input or Path(".tools/google-cn")
+    if args.google_cn_input is None:
+        fetch_snapshot(json.loads((ROOT / "toolchain.json").read_text()), input_dir)
+    build(args.source, args.output, args.sing_box.resolve(), input_dir)
 
 
 if __name__ == "__main__":

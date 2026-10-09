@@ -60,6 +60,17 @@ class PublishingTests(unittest.TestCase):
         self.assertTrue(published_changed("c" * 40, self.recipe, self.checkout))
         self.assertTrue(published_changed(self.commit, "d" * 64, self.checkout))
 
+    def test_google_cn_content_changes_trigger_rebuild_without_changing_primary_upstream(self):
+        digest = "f" * 64
+        for branch in BRANCHES:
+            path = self.dist / branch / "manifest.json"
+            manifest = json.loads(path.read_text())
+            manifest["google_cn_source"] = {"sha256": digest, "commit": "1" * 40}
+            path.write_text(json.dumps(manifest))
+        self.publish()
+        self.assertFalse(published_changed(self.commit, self.recipe, self.checkout, digest))
+        self.assertTrue(published_changed(self.commit, self.recipe, self.checkout, "e" * 64))
+
     def test_deleted_files_are_removed_and_branches_advance_together(self):
         self.publish()
         self.write_products(commit="c" * 40, filename="Replacement")
