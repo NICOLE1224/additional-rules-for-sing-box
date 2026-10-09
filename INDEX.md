@@ -208,3 +208,4 @@
 | WeiYun/WeiYun.yaml | [WeiYun/WeiYun.srs](WeiYun/WeiYun.srs) | 7 |
 | WeiYun/WeiYun_Domain.yaml | [WeiYun/WeiYun_Domain.srs](WeiYun/WeiYun_Domain.srs) | 7 |
 | WeiYun/WeiYun_No_Resolve.yaml | [WeiYun/WeiYun_No_Resolve.srs](WeiYun/WeiYun_No_Resolve.srs) | 7 |
+| MetaCubeX/meta-rules-dat/geo/geosite/google@cn.json | [Google/google@cn_no_gemini.srs](Google/google%40cn_no_gemini.srs) | 122 |
