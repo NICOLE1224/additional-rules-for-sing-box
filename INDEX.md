@@ -4,7 +4,7 @@
 
 该分支仅包含域名匹配条件。原始规则中的 DIRECT/REJECT 等策略需要自行配置。
 
-主文件排除了 285 条未确认等价支持的条件；可选通配符补充见下方，详情见 `manifest.json`。
+主文件排除了 287 条未确认等价支持的条件；可选通配符补充见下方，详情见 `manifest.json`。
 
 | 上游文件 | 规则集 | 去重后条目数 |
 | --- | --- | --- |
@@ -210,6 +210,7 @@
 | WeiYun/WeiYun.yaml | [WeiYun/WeiYun.list](WeiYun/WeiYun.list) | 7 |
 | WeiYun/WeiYun_Domain.yaml | [WeiYun/WeiYun_Domain.list](WeiYun/WeiYun_Domain.list) | 7 |
 | WeiYun/WeiYun_No_Resolve.yaml | [WeiYun/WeiYun_No_Resolve.list](WeiYun/WeiYun_No_Resolve.list) | 7 |
+| MetaCubeX/meta-rules-dat/geo/geosite/google@cn.json | [Google/google@cn_no_gemini.list](Google/google%40cn_no_gemini.list) | 120 |
 
 ## 可选 DOMAIN-WILDCARD 补充
 

@@ -1,0 +1,41 @@
+{
+  "google_cn_source": {
+    "repository": "https://github.com/MetaCubeX/meta-rules-dat",
+    "ref": "sing",
+    "path": "geo/geosite/google@cn.json",
+    "commit": "d9e3c4c09747d325d28e9bfe8829011135cfbbbf",
+    "sha256": "4a3deb08d079e944cfb5b4437d297cf6167cb489fc1e5037264ddded312cfef3"
+  },
+  "derivation": {
+    "operation": "google@cn AND NOT Gemini",
+    "excluded_source": "Gemini/Gemini.yaml",
+    "excluded_source_sha256": "f83344fd66504aabc9cb0c956c696c6211968e6f0ecf5aae20de9b721b0cd004",
+    "removed_entries": [
+      {
+        "field": "domain",
+        "value": "fonts.googleapis.com"
+      },
+      {
+        "field": "domain",
+        "value": "fonts.gstatic.com"
+      },
+      {
+        "field": "domain",
+        "value": "ssl.gstatic.com"
+      },
+      {
+        "field": "domain",
+        "value": "www.gstatic.com"
+      }
+    ],
+    "retained_by_type": {
+      "domain": 110,
+      "domain_regex": 2,
+      "domain_suffix": 10
+    },
+    "shadowrocket_guarded_entries": []
+  },
+  "license_repository": "https://github.com/MetaCubeX/meta-rules-dat",
+  "license_revision": "4178770badecb1b349fbcd62c737e0d7a2079729",
+  "license_sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+}
