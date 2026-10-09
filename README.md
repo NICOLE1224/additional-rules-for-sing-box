@@ -29,7 +29,7 @@
 
 ## 检测上游更新
 
-Actions 每 6 小时检查上游 `main` 的提交；**上游提交和转换器构建指纹均未变化时，跳过依赖安装、转换、编译和发布，不创建空提交**。转换器代码或配置变化也会触发重建。首次运行或任一产物分支缺失时会构建。
+Actions 每 6 小时检查 Accademia 上游 `main` 的提交，以及 MetaCubeX `sing` 分支中 `geo/geosite/google@cn.json` 的内容 SHA-256；**两份输入和转换器构建指纹均未变化时，跳过依赖安装、转换、编译和发布，不创建空提交**。Google CN 原文按检测到的提交下载，转换前再次验证内容哈希；MetaCubeX 只更新其他文件时不会触发重建。转换器代码、配置或所附许可证变化也会触发重建。首次运行或任一产物分支缺失时会构建。
 
 这是对外部仓库的轮询检测：上游提交不会直接触发本仓库的 Actions。定时任务可能被 GitHub 延迟；可以在 Actions → **Update domain rule-sets** → **Run workflow** 手动立即检查。手动检查也会在没有变化时跳过。
 
@@ -106,6 +106,22 @@ RULE-SET,https://raw.githubusercontent.com/NICOLE1224/additional-rules-for-sing-
 
 格式参考：[LOWERTOP 编写的 Shadowrocket 社区手册：规则类型](https://github.com/LOWERTOP/Shadowrocket#规则类型)、[blackmatrix7 发布的 Shadowrocket RULE-SET 示例](https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Shadowrocket/Gemini/Gemini.list)。这些是社区作者的资料，不是客户端官方解析器。本项目检查生成文本的类型、条目和统计，并测试发布流程；尚未在 Shadowrocket 客户端实机导入验证。
 
+## Google CN 排除 Gemini 的裁剪版
+
+另外生成 `Google/google@cn_no_gemini`，来源为 [MetaCubeX 的 google@cn.json](https://github.com/MetaCubeX/meta-rules-dat/blob/sing/geo/geosite/google%40cn.json)，排除范围严格使用 [Accademia 的 Gemini/Gemini.yaml](https://github.com/Accademia/Additional_Rule_For_Clash/blob/main/Gemini/Gemini.yaml)，不是 `Gemini_Domain.yaml`，不另加自定义排除项。三个分支自动产出：
+
+| 格式 | 订阅文件 |
+| --- | --- |
+| sing-box JSON | [Google/google@cn_no_gemini.json](https://raw.githubusercontent.com/NICOLE1224/additional-rules-for-sing-box/json/Google/google%40cn_no_gemini.json) |
+| sing-box SRS | [Google/google@cn_no_gemini.srs](https://raw.githubusercontent.com/NICOLE1224/additional-rules-for-sing-box/srs/Google/google%40cn_no_gemini.srs) |
+| Shadowrocket RULE-SET | [Google/google@cn_no_gemini.list](https://raw.githubusercontent.com/NICOLE1224/additional-rules-for-sing-box/shadowrocket/Google/google%40cn_no_gemini.list) |
+
+完整域名会按 Gemini 的完整域名、后缀和关键词条件判断，移除已被其覆盖的条目。完全被覆盖的后缀也会移除；只部分重叠的后缀会保留非 Gemini 的部分。JSON/SRS 始终使用逻辑条件 `Google CN AND NOT Gemini`，包括正则匹配的范围，从而避免仅按条目文字相减时遗漏冲突。原始 IP 条件不输出。若以后 Gemini 出现不能等价导出到 Shadowrocket 的排除语法，构建失败并保留之前的产物，等待维护者处理。
+
+Shadowrocket 对支持的条件生成普通两列规则；若保留的后缀或关键词有部分重叠，使用 `AND` / `NOT` / `OR` 域名逻辑规则。Google 源中的任意正则按现有兼容性原则省略并逐条记录，不猜测对应的 `DOMAIN-WILDCARD`。因此 Shadowrocket 裁剪版可能少于 JSON/SRS 的正向条件数。规则文件不附带 DIRECT/PROXY 策略，使用时自行选择调用策略。
+
+`manifest.json` 中的 `google_cn_source` 保存 Google 输入的提交及 SHA-256；`derived_rule_sets` 保存裁剪输出路径、文件哈希、移除条目、保留类型数量及 Shadowrocket 的省略数。每个产物分支另附 `SOURCE.google-cn/`：构建使用的两份原文和修改来源记录，文本文件后缀为 `.txt`，不作为规则集订阅。`LICENSE.meta-rules-dat` 单独保存 MetaCubeX 仓库默认分支的 GPL-3.0 许可证，原 Accademia MIT 声明继续保存在 `LICENSE.upstream`。
+
 ## 转换语义与上游异常
 
 | 输入 | 输出 |
@@ -141,4 +157,4 @@ python scripts/convert.py --source upstream --output dist
 
 ## 许可与来源
 
-上游规则来自 Accademia，以 [MIT 协议](https://github.com/Accademia/Additional_Rule_For_Clash/blob/main/LICENSE) 发布。生成的分支保留上游版权及许可声明。转换代码与原始规则的来源应分别识别，不将上游规则归为本项目原创。
+Accademia 原始规则以 [MIT 协议](https://github.com/Accademia/Additional_Rule_For_Clash/blob/main/LICENSE) 发布；Google CN 输入另来自 MetaCubeX，其仓库默认分支提供 [GPL-3.0 许可证](https://github.com/MetaCubeX/meta-rules-dat/blob/master/LICENSE)。生成的分支分别保留相关许可及来源声明；Google 裁剪规则同时附构建原文和修改记录。转换代码与两份规则的来源应分别识别，不将上游规则归为本项目原创，也不将新增的 MetaCubeX 来源标为 Accademia MIT 规则。

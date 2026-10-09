@@ -1,19 +1,70 @@
 {
   "upstream_repository": "https://github.com/Accademia/Additional_Rule_For_Clash",
   "upstream_commit": "0dff7831cdebc155ef57998fcd88ed20d977f788",
-  "build_fingerprint": "b96a232c8babab4db3029b4c073220b52a88ff0bf5e038c257f1ec846fdbf9b5",
+  "build_fingerprint": "0d87e67ed12c3788c237128b984f90b870acd896e356f6d51592e2067f320814",
   "sing_box_version": "1.14.2",
   "rule_set_version": 2,
   "source_files": 248,
-  "generated_rule_sets": 202,
+  "generated_rule_sets": 203,
+  "derived_rule_sets": [
+    {
+      "source": "MetaCubeX/meta-rules-dat/geo/geosite/google@cn.json",
+      "source_sha256": "4a3deb08d079e944cfb5b4437d297cf6167cb489fc1e5037264ddded312cfef3",
+      "status": "converted",
+      "input_entries": 126,
+      "unique_entries": 122,
+      "json": "Google/google@cn_no_gemini.json",
+      "srs": "Google/google@cn_no_gemini.srs",
+      "json_sha256": "713ba233e3fcc22d341e53fb1a82347f302d9aafc28320f3eb83254aa478bff5",
+      "srs_sha256": "01e97ef7d88996d71ade1eba68b64440ec270d4f435ad2e4b798bf5f6b1c4d74",
+      "derivation": {
+        "operation": "google@cn AND NOT Gemini",
+        "excluded_source": "Gemini/Gemini.yaml",
+        "excluded_source_sha256": "f83344fd66504aabc9cb0c956c696c6211968e6f0ecf5aae20de9b721b0cd004",
+        "removed_entries": [
+          {
+            "field": "domain",
+            "value": "fonts.googleapis.com"
+          },
+          {
+            "field": "domain",
+            "value": "fonts.gstatic.com"
+          },
+          {
+            "field": "domain",
+            "value": "ssl.gstatic.com"
+          },
+          {
+            "field": "domain",
+            "value": "www.gstatic.com"
+          }
+        ],
+        "retained_by_type": {
+          "domain": 110,
+          "domain_regex": 2,
+          "domain_suffix": 10
+        },
+        "shadowrocket_guarded_entries": []
+      },
+      "ignored_types": {},
+      "shadowrocket_unique_entries": 120,
+      "shadowrocket_excluded_from_primary_entries": 2,
+      "shadowrocket_unrepresented_entries": 2,
+      "shadowrocket_wildcard_unique_entries": 0,
+      "shadowrocket_wildcard_covered_predicates": 0,
+      "shadowrocket_status": "converted",
+      "shadowrocket": "Google/google@cn_no_gemini.list",
+      "shadowrocket_sha256": "bea02fdd9c37ccfb08be326839ad9e784ab34b002efd48b5bbd5de11e6547896"
+    }
+  ],
   "shadowrocket": {
-    "generated_rule_sets": 202,
-    "unique_entries": 446123,
-    "excluded_from_primary_entries": 285,
+    "generated_rule_sets": 203,
+    "unique_entries": 446243,
+    "excluded_from_primary_entries": 287,
     "generated_wildcard_rule_sets": 18,
     "wildcard_unique_entries": 562,
     "wildcard_covered_predicates": 285,
-    "unrepresented_entries": 0
+    "unrepresented_entries": 2
   },
   "sources": [
     {
@@ -9196,6 +9247,29 @@
       "reason": "Equivalent DOMAIN-REGEX support in Shadowrocket is unconfirmed",
       "status": "excluded_shadowrocket_primary",
       "wildcard_supplement_available": true
+    },
+    {
+      "source": "MetaCubeX/meta-rules-dat/geo/geosite/google@cn.json",
+      "field": "domain_regex",
+      "value": "^r+[0-9]+(---|\\.)sn-(2x3|ni5|j5o)\\w{5}\\.googlevideo\\.com$",
+      "reason": "Equivalent Shadowrocket representation is unconfirmed",
+      "status": "excluded_shadowrocket_primary",
+      "wildcard_supplement_available": false
+    },
+    {
+      "source": "MetaCubeX/meta-rules-dat/geo/geosite/google@cn.json",
+      "field": "domain_regex",
+      "value": "^r+[0-9]+(---|\\.)sn-(2x3|ni5|j5o)\\w{5}\\.xn--ngstr-lra8j\\.com$",
+      "reason": "Equivalent Shadowrocket representation is unconfirmed",
+      "status": "excluded_shadowrocket_primary",
+      "wildcard_supplement_available": false
     }
-  ]
+  ],
+  "google_cn_source": {
+    "repository": "https://github.com/MetaCubeX/meta-rules-dat",
+    "ref": "sing",
+    "path": "geo/geosite/google@cn.json",
+    "commit": "d9e3c4c09747d325d28e9bfe8829011135cfbbbf",
+    "sha256": "4a3deb08d079e944cfb5b4437d297cf6167cb489fc1e5037264ddded312cfef3"
+  }
 }
