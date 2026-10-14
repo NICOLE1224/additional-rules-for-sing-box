@@ -9,7 +9,7 @@
   "derived_rule_sets": [
     {
       "source": "MetaCubeX/meta-rules-dat/geo/geosite/google@cn.json",
-      "source_sha256": "dc895fc79cf0d96dc7f3f60fc8a2d7ca9b89f5acf5edf2a178ab4c649cfe7b29",
+      "source_sha256": "88f23c5042829050ddd1eec69c337957f19aa09231fb4b95b9b79a9731ca6a89",
       "status": "converted",
       "input_entries": 126,
       "unique_entries": 122,
@@ -54,7 +54,7 @@
       "shadowrocket_wildcard_covered_predicates": 0,
       "shadowrocket_status": "converted",
       "shadowrocket": "Google/google@cn_no_gemini.list",
-      "shadowrocket_sha256": "2ebaf3420f80d6f7792b7e5d163a2699f9e73103bac2953284c1579ce61ffb51"
+      "shadowrocket_sha256": "9191c91150760bbebd0fc3c2c5cdc50c3f268ac4721b0f306bdb963d4fba5714"
     }
   ],
   "shadowrocket": {
@@ -9269,7 +9269,7 @@
     "repository": "https://github.com/MetaCubeX/meta-rules-dat",
     "ref": "sing",
     "path": "geo/geosite/google@cn.json",
-    "commit": "60deb1f29afd157829e335a3db3fb2ea458f3cd2",
-    "sha256": "dc895fc79cf0d96dc7f3f60fc8a2d7ca9b89f5acf5edf2a178ab4c649cfe7b29"
+    "commit": "b0c55a3870624b237c85c8e9ea6656493f8d44b6",
+    "sha256": "88f23c5042829050ddd1eec69c337957f19aa09231fb4b95b9b79a9731ca6a89"
   }
 }
