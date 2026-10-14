@@ -16,6 +16,7 @@ import yaml
 
 from check_upstream import BRANCHES, ROOT, fingerprint, git
 from google_cn import fetch_snapshot, load_snapshot, subtract
+from proxy_rules import fetch_snapshot as fetch_proxy_snapshot, load_snapshot as load_proxy_snapshot
 
 FIELDS = {"DOMAIN": "domain", "DOMAIN-SUFFIX": "domain_suffix",
           "DOMAIN-KEYWORD": "domain_keyword", "DOMAIN-REGEX": "domain_regex"}
@@ -204,6 +205,64 @@ def run(*args):
     return (result.stdout + result.stderr).strip()
 
 
+def emit_rule_set(staging, relative, rule, payload, upstream_commit, record, issues, compiler, config, outputs, shadowrocket_paths):
+    if rule:
+        json_relative, srs_relative = relative.with_suffix(".json"), relative.with_suffix(".srs")
+        if json_relative in outputs:
+            raise ValueError(f"Output filename collision: {json_relative}")
+        outputs.add(json_relative)
+        json_path, srs_path = staging / "json" / json_relative, staging / "srs" / srs_relative
+        write_json(json_path, {"version": config["rule_set_version"], "rules": [rule]})
+        srs_path.parent.mkdir(parents=True, exist_ok=True)
+        run(str(compiler), "rule-set", "compile", "--output", str(srs_path), str(json_path))
+        if srs_path.read_bytes()[:4] != b"SRS\x02":
+            raise ValueError(f"Unexpected binary header/version: {srs_relative}")
+        record.update(json=json_relative.as_posix(), srs=srs_relative.as_posix(),
+                      srs_sha256=hashlib.sha256(srs_path.read_bytes()).hexdigest(),
+                      json_sha256=hashlib.sha256(json_path.read_bytes()).hexdigest(), status="converted")
+        lines, excluded = shadowrocket_rules(rule)
+        wildcard_lines, represented = shadowrocket_wildcards(payload)
+        record.update(shadowrocket_unique_entries=len(lines), shadowrocket_excluded_from_primary_entries=len(excluded),
+                      shadowrocket_wildcard_unique_entries=len(wildcard_lines),
+                      shadowrocket_wildcard_covered_predicates=len(represented),
+                      shadowrocket_unrepresented_entries=sum((e["field"], e["value"]) not in represented for e in excluded),
+                      shadowrocket_status="converted" if lines else "no_supported_domain_rules")
+        issues.extend({"source": record["source"], **item, "status": "excluded_shadowrocket_primary",
+                       "wildcard_supplement_available": (item["field"], item["value"]) in represented}
+                      for item in excluded)
+        if lines:
+            list_relative = relative.with_suffix(".list")
+            if list_relative in shadowrocket_paths:
+                raise ValueError(f"Shadowrocket filename collision: {list_relative}")
+            shadowrocket_paths.add(list_relative)
+            list_path = staging / "shadowrocket" / list_relative
+            list_path.parent.mkdir(parents=True, exist_ok=True)
+            header = ["# Shadowrocket RULE-SET: domain predicates only; policy is supplied by the caller.",
+                      f"# Source: {record['source']}", f"# Upstream commit: {upstream_commit}",
+                      f"# Unsupported predicates excluded: {len(excluded)}; see manifest.json."]
+            list_path.write_text("\n".join(header + lines) + "\n", encoding="utf-8")
+            record.update(shadowrocket=list_relative.as_posix(),
+                          shadowrocket_sha256=hashlib.sha256(list_path.read_bytes()).hexdigest())
+        if wildcard_lines:
+            wildcard_relative = relative.with_suffix(".wildcard.list")
+            if wildcard_relative in shadowrocket_paths:
+                raise ValueError(f"Shadowrocket filename collision: {wildcard_relative}")
+            shadowrocket_paths.add(wildcard_relative)
+            wildcard_path = staging / "shadowrocket" / wildcard_relative
+            wildcard_path.parent.mkdir(parents=True, exist_ok=True)
+            header = ["# OPTIONAL Shadowrocket DOMAIN-WILDCARD supplement; subscribe separately.",
+                      "# WARNING: glob matching may cover more domains than the original Clash patterns.",
+                      f"# Source: {record['source']}", f"# Upstream commit: {upstream_commit}"]
+            wildcard_path.write_text("\n".join(header + wildcard_lines) + "\n", encoding="utf-8")
+            record.update(shadowrocket_wildcard=wildcard_relative.as_posix(),
+                          shadowrocket_wildcard_sha256=hashlib.sha256(wildcard_path.read_bytes()).hexdigest())
+    else:
+        record["status"] = "no_domain_rules"
+        record.update(shadowrocket_status="no_domain_rules", shadowrocket_unique_entries=0,
+                      shadowrocket_excluded_from_primary_entries=0, shadowrocket_wildcard_unique_entries=0,
+                      shadowrocket_wildcard_covered_predicates=0, shadowrocket_unrepresented_entries=0)
+
+
 def build_google_cn(staging, source_dir, input_dir, compiler, config, outputs, shadowrocket_paths):
     base, metadata, ignored = load_snapshot(config, input_dir)
     exclude_path = source_dir / config["google_cn"]["exclude"]
@@ -266,7 +325,51 @@ def build_google_cn(staging, source_dir, input_dir, compiler, config, outputs, s
     return record, metadata, issues
 
 
-def build(source_dir, output, compiler, google_cn_input=None):
+def build_proxy(staging, input_dir, compiler, config, outputs, shadowrocket_paths):
+    text, metadata = load_proxy_snapshot(config, input_dir)
+    data = yaml.load(text, Loader=UniqueLoader)
+    if not isinstance(data, dict) or not isinstance(data.get("payload"), list):
+        raise ValueError("Proxy source must contain a YAML payload list")
+    source = metadata["repository"].removeprefix("https://github.com/") + "/" + metadata["path"]
+    rule, stats, ignored, policies, issues = convert_payload(data["payload"], source, set())
+    if not rule:
+        raise ValueError("Proxy source contains no domain predicates")
+    stem = Path(config["proxy"]["output"])
+    if stem.is_absolute() or ".." in stem.parts:
+        raise ValueError("Invalid Proxy output path")
+    record = {"source": source, "source_sha256": metadata["sha256"], **stats,
+              "input_types": dict(sorted(Counter(s.split(",", 1)[0].strip().upper() if "," in s else "domain_provider"
+                                                for s in data["payload"]).items())),
+              "domain_counts": {k: len(v) for k, v in rule.items()},
+              "ignored_types": ignored, "omitted_policies": policies, "license": "GPL-2.0"}
+    emit_rule_set(staging, stem.with_suffix(".yaml"), rule, data["payload"], metadata["commit"], record, issues,
+                  compiler, config, outputs, shadowrocket_paths)
+    license_path = ROOT / "licenses/LICENSE.blackmatrix7"
+    if hashlib.sha256(license_path.read_bytes()).hexdigest() != config["proxy"]["license_sha256"]:
+        raise ValueError("Proxy source license checksum mismatch")
+    for branch in BRANCHES:
+        provenance = staging / branch / "SOURCE.proxy"
+        provenance.mkdir(parents=True, exist_ok=True)
+        (provenance / "Proxy_Classical.input.yaml.txt").write_bytes((input_dir / "input.yaml").read_bytes())
+        for name in ("README.proxy.md.txt", "README.upstream.md.txt"):
+            shutil.copy2(input_dir / name, provenance / name)
+        write_json(provenance / "provenance.json.txt", {"proxy_source": metadata,
+                   "transformation": "Extract domain predicates; exclude IP/non-domain rules and policies; sort and deduplicate",
+                   "conversion_date": config["proxy"]["conversion_date"], "statistics": record})
+        (provenance / "NOTICE.md").write_text(
+            "# blackmatrix7 Proxy 域名规则转换\n\n"
+            f"本项目于 {config['proxy']['conversion_date']} 接入并修改输出格式。"
+            "上游作者为 blackmatrix7，提供 GPL-2.0 许可证；许可原文见分支根目录 `LICENSE.blackmatrix7`。\n\n"
+            "只提取域名及关键词条件，忽略 IP 等非域名条件和策略，排序并去重；"
+            "该修改不代表上游作者作出相同的格式或路由选择。\n\n"
+            "原始规则、仓库特别声明、Proxy 来源说明和构建哈希分别随附于本目录。"
+            "转换源码位于本仓库 main 分支的 scripts/convert.py 和 scripts/proxy_rules.py。\n",
+            encoding="utf-8")
+        shutil.copy2(license_path, staging / branch / "LICENSE.blackmatrix7")
+    return record, metadata, issues
+
+
+def build(source_dir, output, compiler, google_cn_input=None, proxy_input=None):
     source_dir, output = source_dir.resolve(), output.resolve()
     if output.exists():
         raise ValueError(f"Output already exists; use a new directory: {output}")
@@ -298,61 +401,8 @@ def build(source_dir, output, compiler, google_cn_input=None):
             issues.extend(file_issues)
             record = {"source": relative.as_posix(), "source_sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
                       **stats, "ignored_types": ignored, "omitted_policies": policies}
-            if rule:
-                json_relative, srs_relative = relative.with_suffix(".json"), relative.with_suffix(".srs")
-                if json_relative in outputs:
-                    raise ValueError(f"Output filename collision: {json_relative}")
-                outputs.add(json_relative)
-                json_path, srs_path = staging / "json" / json_relative, staging / "srs" / srs_relative
-                write_json(json_path, {"version": config["rule_set_version"], "rules": [rule]})
-                srs_path.parent.mkdir(parents=True, exist_ok=True)
-                run(str(compiler), "rule-set", "compile", "--output", str(srs_path), str(json_path))
-                if srs_path.read_bytes()[:4] != b"SRS\x02":
-                    raise ValueError(f"Unexpected binary header/version: {srs_relative}")
-                record.update(json=json_relative.as_posix(), srs=srs_relative.as_posix(),
-                              srs_sha256=hashlib.sha256(srs_path.read_bytes()).hexdigest(),
-                              json_sha256=hashlib.sha256(json_path.read_bytes()).hexdigest(), status="converted")
-                lines, excluded = shadowrocket_rules(rule)
-                wildcard_lines, represented = shadowrocket_wildcards(data["payload"])
-                record.update(shadowrocket_unique_entries=len(lines), shadowrocket_excluded_from_primary_entries=len(excluded),
-                              shadowrocket_wildcard_unique_entries=len(wildcard_lines),
-                              shadowrocket_wildcard_covered_predicates=len(represented),
-                              shadowrocket_unrepresented_entries=sum((e["field"], e["value"]) not in represented for e in excluded),
-                              shadowrocket_status="converted" if lines else "no_supported_domain_rules")
-                issues.extend({"source": relative.as_posix(), **item, "status": "excluded_shadowrocket_primary",
-                               "wildcard_supplement_available": (item["field"], item["value"]) in represented}
-                              for item in excluded)
-                if lines:
-                    list_relative = relative.with_suffix(".list")
-                    if list_relative in shadowrocket_paths:
-                        raise ValueError(f"Shadowrocket filename collision: {list_relative}")
-                    shadowrocket_paths.add(list_relative)
-                    list_path = staging / "shadowrocket" / list_relative
-                    list_path.parent.mkdir(parents=True, exist_ok=True)
-                    header = ["# Shadowrocket RULE-SET: domain predicates only; policy is supplied by the caller.",
-                              f"# Source: {relative.as_posix()}", f"# Upstream commit: {upstream_commit}",
-                              f"# Unsupported predicates excluded: {len(excluded)}; see manifest.json."]
-                    list_path.write_text("\n".join(header + lines) + "\n", encoding="utf-8")
-                    record.update(shadowrocket=list_relative.as_posix(),
-                                  shadowrocket_sha256=hashlib.sha256(list_path.read_bytes()).hexdigest())
-                if wildcard_lines:
-                    wildcard_relative = relative.with_suffix(".wildcard.list")
-                    if wildcard_relative in shadowrocket_paths:
-                        raise ValueError(f"Shadowrocket filename collision: {wildcard_relative}")
-                    shadowrocket_paths.add(wildcard_relative)
-                    wildcard_path = staging / "shadowrocket" / wildcard_relative
-                    wildcard_path.parent.mkdir(parents=True, exist_ok=True)
-                    header = ["# OPTIONAL Shadowrocket DOMAIN-WILDCARD supplement; subscribe separately.",
-                              "# WARNING: glob matching may cover more domains than the original Clash patterns.",
-                              f"# Source: {relative.as_posix()}", f"# Upstream commit: {upstream_commit}"]
-                    wildcard_path.write_text("\n".join(header + wildcard_lines) + "\n", encoding="utf-8")
-                    record.update(shadowrocket_wildcard=wildcard_relative.as_posix(),
-                                  shadowrocket_wildcard_sha256=hashlib.sha256(wildcard_path.read_bytes()).hexdigest())
-            else:
-                record["status"] = "no_domain_rules"
-                record.update(shadowrocket_status="no_domain_rules", shadowrocket_unique_entries=0,
-                              shadowrocket_excluded_from_primary_entries=0, shadowrocket_wildcard_unique_entries=0,
-                              shadowrocket_wildcard_covered_predicates=0, shadowrocket_unrepresented_entries=0)
+            emit_rule_set(staging, relative, rule, data["payload"], upstream_commit, record, issues,
+                          compiler, config, outputs, shadowrocket_paths)
             sources.append(record)
         if not outputs:
             raise ValueError("No domain rule-sets were produced")
@@ -362,7 +412,13 @@ def build(source_dir, output, compiler, google_cn_input=None):
                 staging, source_dir, google_cn_input.resolve(), compiler, config, outputs, shadowrocket_paths)
             derived.append(record)
             issues.extend(derived_issues)
-        all_records = sources + derived
+        additional, proxy_source = [], None
+        if proxy_input is not None:
+            record, proxy_source, proxy_issues = build_proxy(
+                staging, proxy_input.resolve(), compiler, config, outputs, shadowrocket_paths)
+            additional.append(record)
+            issues.extend(proxy_issues)
+        all_records = sources + derived + additional
         # Use the official parser to validate every binary, including Go regexp syntax.
         check_config = staging / "check.json"
         write_json(check_config, {"route": {"rule_set": [
@@ -374,7 +430,7 @@ def build(source_dir, output, compiler, google_cn_input=None):
         manifest = {"upstream_repository": config["upstream_repository"], "upstream_commit": upstream_commit,
                     "build_fingerprint": fingerprint(), "sing_box_version": config["sing_box_version"],
                     "rule_set_version": config["rule_set_version"], "source_files": len(files),
-                    "generated_rule_sets": len(outputs), "derived_rule_sets": derived,
+                    "generated_rule_sets": len(outputs), "derived_rule_sets": derived, "additional_rule_sets": additional,
                     "shadowrocket": {"generated_rule_sets": sum("shadowrocket" in r for r in all_records),
                                      "unique_entries": sum(r["shadowrocket_unique_entries"] for r in all_records),
                                      "excluded_from_primary_entries": sum(r["shadowrocket_excluded_from_primary_entries"] for r in all_records),
@@ -385,6 +441,8 @@ def build(source_dir, output, compiler, google_cn_input=None):
                     "sources": sources, "issues": issues}
         if google_cn_source is not None:
             manifest["google_cn_source"] = google_cn_source
+        if proxy_source is not None:
+            manifest["proxy_source"] = proxy_source
         for branch in BRANCHES:
             write_json(staging / branch / "manifest.json", manifest)
             shutil.copy2(source_dir / "LICENSE", staging / branch / "LICENSE.upstream")
@@ -422,11 +480,15 @@ def main():
     parser.add_argument("--output", type=Path, default=Path("dist"))
     parser.add_argument("--sing-box", type=Path, default=Path(".tools/sing-box"))
     parser.add_argument("--google-cn-input", type=Path, help="use an existing verified snapshot instead of fetching a fresh input")
+    parser.add_argument("--proxy-input", type=Path, help="use an existing verified Proxy snapshot instead of fetching a fresh input")
     args = parser.parse_args()
     input_dir = args.google_cn_input or Path(".tools/google-cn")
     if args.google_cn_input is None:
         fetch_snapshot(json.loads((ROOT / "toolchain.json").read_text()), input_dir)
-    build(args.source, args.output, args.sing_box.resolve(), input_dir)
+    proxy_dir = args.proxy_input or Path(".tools/proxy")
+    if args.proxy_input is None:
+        fetch_proxy_snapshot(json.loads((ROOT / "toolchain.json").read_text()), proxy_dir)
+    build(args.source, args.output, args.sing_box.resolve(), input_dir, proxy_dir)
 
 
 if __name__ == "__main__":

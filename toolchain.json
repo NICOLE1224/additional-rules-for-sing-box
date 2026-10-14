@@ -12,5 +12,15 @@
     "output": "Google/google@cn_no_gemini",
     "license_revision": "4178770badecb1b349fbcd62c737e0d7a2079729",
     "license_sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+  },
+  "proxy": {
+    "repository": "https://github.com/blackmatrix7/ios_rule_script",
+    "ref": "master",
+    "path": "rule/Clash/Proxy/Proxy_Classical.yaml",
+    "readme": "rule/Clash/Proxy/README.md",
+    "output": "Proxy/Proxy_Classical",
+    "license_revision": "d8363caa2c1e47fb735615316032bed3f475ee57",
+    "license_sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643",
+    "conversion_date": "2026-10-14"
   }
 }

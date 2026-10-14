@@ -71,6 +71,30 @@ class PublishingTests(unittest.TestCase):
         self.assertFalse(published_changed(self.commit, self.recipe, self.checkout, digest))
         self.assertTrue(published_changed(self.commit, self.recipe, self.checkout, "e" * 64))
 
+    def test_proxy_source_changes_and_missing_metadata_trigger_rebuild(self):
+        digest = "9" * 64
+        self.publish()
+        self.assertTrue(published_changed(self.commit, self.recipe, self.checkout, proxy_snapshot_sha256=digest))
+        for branch in BRANCHES:
+            path = self.dist / branch / "manifest.json"
+            manifest = json.loads(path.read_text())
+            manifest["proxy_source"] = {"snapshot_sha256": digest, "commit": "1" * 40}
+            path.write_text(json.dumps(manifest))
+        self.publish()
+        self.assertFalse(published_changed(self.commit, self.recipe, self.checkout, proxy_snapshot_sha256=digest))
+        self.assertTrue(published_changed(self.commit, self.recipe, self.checkout, proxy_snapshot_sha256="8" * 64))
+        path = self.dist / "shadowrocket/manifest.json"
+        manifest = json.loads(path.read_text())
+        manifest["proxy_source"] = None
+        path.write_text(json.dumps(manifest))
+        # Alter this one remote branch to simulate a damaged published manifest.
+        self.command("git", "checkout", "shadowrocket", cwd=self.checkout)
+        (self.checkout / "manifest.json").write_text(json.dumps(manifest))
+        self.command("git", "add", ".", cwd=self.checkout)
+        self.command("git", "commit", "-m", "Broken metadata fixture", cwd=self.checkout)
+        self.command("git", "push", "origin", "shadowrocket", cwd=self.checkout)
+        self.assertTrue(published_changed(self.commit, self.recipe, self.checkout, proxy_snapshot_sha256=digest))
+
     def test_deleted_files_are_removed_and_branches_advance_together(self):
         self.publish()
         self.write_products(commit="c" * 40, filename="Replacement")
