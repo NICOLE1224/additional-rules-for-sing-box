@@ -2,6 +2,8 @@
 
 使用 GitHub Actions 将 [Accademia/Additional_Rule_For_Clash](https://github.com/Accademia/Additional_Rule_For_Clash) 的域名规则转换为 sing-box JSON 规则集，再通过官方编译器生成 `.srs`；同时生成 Shadowrocket 可订阅的 `.list` RULE-SET。
 
+额外接入 Google CN 排除 Gemini 的裁剪版，以及 blackmatrix7 的 Proxy 域名与关键词规则。不同来源分别保留归属、许可证、原文和变更检测。
+
 仅提取域名匹配条件。IP、GEOIP、进程等非域名条件不输出；**DIRECT、REJECT、REJECT-DROP 等策略不包含在规则集中，需要在自己的客户端配置中单独设置**。尤其 FakeLocation 等混合策略文件，不能通过给整份规则集指定一个代理来复现原始行为。
 
 ## 分支和产物
@@ -29,7 +31,7 @@
 
 ## 检测上游更新
 
-Actions 每 6 小时检查 Accademia 上游 `main` 的提交，以及 MetaCubeX `sing` 分支中 `geo/geosite/google@cn.json` 的内容 SHA-256；**两份输入和转换器构建指纹均未变化时，跳过依赖安装、转换、编译和发布，不创建空提交**。Google CN 原文按检测到的提交下载，转换前再次验证内容哈希；MetaCubeX 只更新其他文件时不会触发重建。转换器代码、配置或所附许可证变化也会触发重建。首次运行或任一产物分支缺失时会构建。
+Actions 每 6 小时检查 Accademia 上游 `main` 的提交、MetaCubeX `sing` 分支中 `geo/geosite/google@cn.json` 的内容 SHA-256，以及 blackmatrix7 Proxy 输入快照的内容哈希；**三份输入和转换器构建指纹均未变化时，跳过依赖安装、转换、编译和发布，不创建空提交**。额外来源按检测到的提交下载，转换前再次验证哈希；MetaCubeX 或 blackmatrix7 只更新无关文件时不会触发重建。Proxy 快照包括规则和两份来源说明；上游许可证变化会停止构建，等待核对。转换器代码、配置或所附许可证变化也会触发重建。首次运行或任一产物分支缺失时会构建。
 
 这是对外部仓库的轮询检测：上游提交不会直接触发本仓库的 Actions。定时任务可能被 GitHub 延迟；可以在 Actions → **Update domain rule-sets** → **Run workflow** 手动立即检查。手动检查也会在没有变化时跳过。
 
@@ -122,6 +124,25 @@ Shadowrocket 对支持的条件生成普通两列规则；若保留的后缀或�
 
 `manifest.json` 中的 `google_cn_source` 保存 Google 输入的提交及 SHA-256；`derived_rule_sets` 保存裁剪输出路径、文件哈希、移除条目、保留类型数量及 Shadowrocket 的省略数。每个产物分支另附 `SOURCE.google-cn/`：构建使用的两份原文和修改来源记录，文本文件后缀为 `.txt`，不作为规则集订阅。`LICENSE.meta-rules-dat` 单独保存 MetaCubeX 仓库默认分支的 GPL-3.0 许可证，原 Accademia MIT 声明继续保存在 `LICENSE.upstream`。
 
+## blackmatrix7 Proxy 域名规则
+
+输入固定为 [Proxy_Classical.yaml](https://github.com/blackmatrix7/ios_rule_script/blob/master/rule/Clash/Proxy/Proxy_Classical.yaml)，来源说明见 [Proxy README](https://github.com/blackmatrix7/ios_rule_script/blob/master/rule/Clash/Proxy/README.md)。同目录 `Proxy.yaml` 需要与另一个域名文件共同使用，不能替代这里的完整经典输入；MetaCubeX 的较小 proxy 名单也不是这个来源。
+
+输出为 `Proxy/Proxy_Classical.json`、`Proxy/Proxy_Classical.srs`、`Proxy/Proxy_Classical.list`，分别位于 `json`、`srs`、`shadowrocket` 产物分支。仅保留 `DOMAIN`、`DOMAIN-SUFFIX`、`DOMAIN-KEYWORD` 等域名条件，IP 规则按类型忽略并计数，不包含 PROXY/DIRECT 等策略。当前来源名单不包含所有代理服务：其 README 指明已排除 Advertising、Claude、OpenAI，使用时仍需按自己的分类规则安排优先级。
+
+`manifest.json` 的 `proxy_source` 保存固定提交、规则 SHA-256、各原文哈希及输入快照哈希；`additional_rule_sets` 保存域名类型数量、忽略的 IP 类型数量、各格式路径及哈希。Proxy 使用现有未知语法失败、排序去重、官方编译器检查、可选通配符处理、三分支原子发布及逐文件完整性核验流程。新增规则不修改 Accademia 或 Google CN 的匹配内容。
+
+每个产物分支保存 `LICENSE.blackmatrix7`（该仓库提供 GPL-2.0 许可证）和 `SOURCE.proxy/`。其中包括原始经典规则、Proxy 来源说明、仓库 README 的特别声明，以及转换说明、修改日期和哈希记录；不是 Accademia 的 MIT 来源。附带的 `.txt` 原文可能含 IP 条目，仅供溯源，不应作为规则集订阅。规则文件自身仍只含域名条件。
+
+本地只核验或复现固定输入时，可以传入已有快照：
+
+```bash
+python scripts/convert.py --source upstream --output artifacts/proxy-review \
+  --google-cn-input .tools/google-cn --proxy-input .tools/proxy
+```
+
+不指定这两项时，命令行构建会获取对应来源的最新固定提交快照。输出目录必须不存在。快照、许可证或未知语法校验失败时，不会留下部分构建。
+
 ## 转换语义与上游异常
 
 | 输入 | 输出 |
@@ -157,4 +178,4 @@ python scripts/convert.py --source upstream --output dist
 
 ## 许可与来源
 
-Accademia 原始规则以 [MIT 协议](https://github.com/Accademia/Additional_Rule_For_Clash/blob/main/LICENSE) 发布；Google CN 输入另来自 MetaCubeX，其仓库默认分支提供 [GPL-3.0 许可证](https://github.com/MetaCubeX/meta-rules-dat/blob/master/LICENSE)。生成的分支分别保留相关许可及来源声明；Google 裁剪规则同时附构建原文和修改记录。转换代码与两份规则的来源应分别识别，不将上游规则归为本项目原创，也不将新增的 MetaCubeX 来源标为 Accademia MIT 规则。
+Accademia 原始规则以 [MIT 协议](https://github.com/Accademia/Additional_Rule_For_Clash/blob/main/LICENSE) 发布；Google CN 输入另来自 MetaCubeX，其仓库默认分支提供 [GPL-3.0 许可证](https://github.com/MetaCubeX/meta-rules-dat/blob/master/LICENSE)；Proxy 输入来自 blackmatrix7，其仓库提供 [GPL-2.0 许可证](https://github.com/blackmatrix7/ios_rule_script/blob/master/LICENSE) 和 README 特别声明。生成的分支分别保留相关许可、来源声明、原文和修改记录。转换代码与各规则来源应分别识别，不将上游规则归为本项目原创，也不将额外来源标为 Accademia MIT 规则。
