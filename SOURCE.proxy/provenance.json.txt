@@ -1,0 +1,60 @@
+{
+  "proxy_source": {
+    "repository": "https://github.com/blackmatrix7/ios_rule_script",
+    "ref": "master",
+    "path": "rule/Clash/Proxy/Proxy_Classical.yaml",
+    "readme": "rule/Clash/Proxy/README.md",
+    "commit": "d8363caa2c1e47fb735615316032bed3f475ee57",
+    "sha256": "7f8b4a0424357356c5f5b07f58f7ba5f4b263d90b05dc144d06ebed829897acd",
+    "files_sha256": {
+      "input.yaml": "7f8b4a0424357356c5f5b07f58f7ba5f4b263d90b05dc144d06ebed829897acd",
+      "README.proxy.md.txt": "23b30c4d79613a90b9a4dfc77d7bd9fda0ec159f52623a6ba7304e9ca65578b6",
+      "README.upstream.md.txt": "22cf4c930b6341d747a5de1896367091421e64b43cc6ef4585075dd9a86e8ba7",
+      "LICENSE.upstream.txt": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643"
+    },
+    "snapshot_sha256": "cd7a94b169ac9e8340a9080d009232d4f0ddc949f6243b6bd8c34253739fef65"
+  },
+  "transformation": "Extract domain predicates; exclude IP/non-domain rules and policies; sort and deduplicate",
+  "conversion_date": "2026-10-14",
+  "statistics": {
+    "source": "blackmatrix7/ios_rule_script/rule/Clash/Proxy/Proxy_Classical.yaml",
+    "source_sha256": "7f8b4a0424357356c5f5b07f58f7ba5f4b263d90b05dc144d06ebed829897acd",
+    "input_entries": 6962,
+    "converted_entries": 6862,
+    "excluded_invalid_entries": 0,
+    "unique_entries": 6862,
+    "duplicate_entries": 0,
+    "ignored_non_domain_entries": 100,
+    "input_types": {
+      "DOMAIN": 9,
+      "DOMAIN-KEYWORD": 26,
+      "DOMAIN-SUFFIX": 6827,
+      "IP-CIDR": 96,
+      "IP-CIDR6": 4
+    },
+    "domain_counts": {
+      "domain": 9,
+      "domain_keyword": 26,
+      "domain_suffix": 6827
+    },
+    "ignored_types": {
+      "IP-CIDR": 96,
+      "IP-CIDR6": 4
+    },
+    "omitted_policies": {},
+    "license": "GPL-2.0",
+    "json": "Proxy/Proxy_Classical.json",
+    "srs": "Proxy/Proxy_Classical.srs",
+    "srs_sha256": "efc55d60bf1b3d7f5936aeedb56980795c7379fd378cd9ac043144af9185bf5d",
+    "json_sha256": "a0687c816a32e1caeb20381ab1ec62294603633ea5fa6be29874d91a8cd6d2e7",
+    "status": "converted",
+    "shadowrocket_unique_entries": 6862,
+    "shadowrocket_excluded_from_primary_entries": 0,
+    "shadowrocket_wildcard_unique_entries": 0,
+    "shadowrocket_wildcard_covered_predicates": 0,
+    "shadowrocket_unrepresented_entries": 0,
+    "shadowrocket_status": "converted",
+    "shadowrocket": "Proxy/Proxy_Classical.list",
+    "shadowrocket_sha256": "fe4c17931f72d0a33ded5d95d5c2b030ba11ffe7cc579653a28a2a4a45f504d0"
+  }
+}
