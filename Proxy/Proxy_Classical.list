@@ -1,6 +1,6 @@
 # Shadowrocket RULE-SET: domain predicates only; policy is supplied by the caller.
 # Source: blackmatrix7/ios_rule_script/rule/Clash/Proxy/Proxy_Classical.yaml
-# Upstream commit: d8363caa2c1e47fb735615316032bed3f475ee57
+# Upstream commit: 933875d42861a7fdfd9f945cd18605d74fa7e943
 # Unsupported predicates excluded: 0; see manifest.json.
 DOMAIN,api.waqi.info
 DOMAIN,aqi.aqicn.org
