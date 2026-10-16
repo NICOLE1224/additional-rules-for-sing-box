@@ -9,7 +9,7 @@
   "derived_rule_sets": [
     {
       "source": "MetaCubeX/meta-rules-dat/geo/geosite/google@cn.json",
-      "source_sha256": "88f23c5042829050ddd1eec69c337957f19aa09231fb4b95b9b79a9731ca6a89",
+      "source_sha256": "230e36c6fc1742808fa3a5e6d7e820e2d3fdaf34730a986724aa86478271c495",
       "status": "converted",
       "input_entries": 126,
       "unique_entries": 122,
@@ -54,7 +54,7 @@
       "shadowrocket_wildcard_covered_predicates": 0,
       "shadowrocket_status": "converted",
       "shadowrocket": "Google/google@cn_no_gemini.list",
-      "shadowrocket_sha256": "9191c91150760bbebd0fc3c2c5cdc50c3f268ac4721b0f306bdb963d4fba5714"
+      "shadowrocket_sha256": "e4e33deb54ddeda346dad16284ed78d7dc9d12437fbf4acc76a13e418a697885"
     }
   ],
   "additional_rule_sets": [
@@ -97,7 +97,7 @@
       "shadowrocket_unrepresented_entries": 0,
       "shadowrocket_status": "converted",
       "shadowrocket": "Proxy/Proxy_Classical.list",
-      "shadowrocket_sha256": "fe4c17931f72d0a33ded5d95d5c2b030ba11ffe7cc579653a28a2a4a45f504d0"
+      "shadowrocket_sha256": "ac59bd534ea4ce2c532738b74f9f47dbbe9045842a82ef95e86193102e380b9d"
     }
   ],
   "shadowrocket": {
@@ -9312,15 +9312,15 @@
     "repository": "https://github.com/MetaCubeX/meta-rules-dat",
     "ref": "sing",
     "path": "geo/geosite/google@cn.json",
-    "commit": "b0c55a3870624b237c85c8e9ea6656493f8d44b6",
-    "sha256": "88f23c5042829050ddd1eec69c337957f19aa09231fb4b95b9b79a9731ca6a89"
+    "commit": "b495d353fd947c1c9cd192ce734608458e3b793f",
+    "sha256": "230e36c6fc1742808fa3a5e6d7e820e2d3fdaf34730a986724aa86478271c495"
   },
   "proxy_source": {
     "repository": "https://github.com/blackmatrix7/ios_rule_script",
     "ref": "master",
     "path": "rule/Clash/Proxy/Proxy_Classical.yaml",
     "readme": "rule/Clash/Proxy/README.md",
-    "commit": "d8363caa2c1e47fb735615316032bed3f475ee57",
+    "commit": "933875d42861a7fdfd9f945cd18605d74fa7e943",
     "sha256": "7f8b4a0424357356c5f5b07f58f7ba5f4b263d90b05dc144d06ebed829897acd",
     "files_sha256": {
       "input.yaml": "7f8b4a0424357356c5f5b07f58f7ba5f4b263d90b05dc144d06ebed829897acd",
