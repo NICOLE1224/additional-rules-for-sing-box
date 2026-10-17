@@ -60,24 +60,24 @@
   "additional_rule_sets": [
     {
       "source": "blackmatrix7/ios_rule_script/rule/Clash/Proxy/Proxy_Classical.yaml",
-      "source_sha256": "7f8b4a0424357356c5f5b07f58f7ba5f4b263d90b05dc144d06ebed829897acd",
-      "input_entries": 6962,
-      "converted_entries": 6862,
+      "source_sha256": "ee50696382603b5b786b2f22fd587bf3762b5a3828f62b2cd7587af226a50f4a",
+      "input_entries": 6965,
+      "converted_entries": 6865,
       "excluded_invalid_entries": 0,
-      "unique_entries": 6862,
+      "unique_entries": 6865,
       "duplicate_entries": 0,
       "ignored_non_domain_entries": 100,
       "input_types": {
         "DOMAIN": 9,
         "DOMAIN-KEYWORD": 26,
-        "DOMAIN-SUFFIX": 6827,
+        "DOMAIN-SUFFIX": 6830,
         "IP-CIDR": 96,
         "IP-CIDR6": 4
       },
       "domain_counts": {
         "domain": 9,
         "domain_keyword": 26,
-        "domain_suffix": 6827
+        "domain_suffix": 6830
       },
       "ignored_types": {
         "IP-CIDR": 96,
@@ -87,22 +87,22 @@
       "license": "GPL-2.0",
       "json": "Proxy/Proxy_Classical.json",
       "srs": "Proxy/Proxy_Classical.srs",
-      "srs_sha256": "efc55d60bf1b3d7f5936aeedb56980795c7379fd378cd9ac043144af9185bf5d",
-      "json_sha256": "a0687c816a32e1caeb20381ab1ec62294603633ea5fa6be29874d91a8cd6d2e7",
+      "srs_sha256": "8fd61fc18d92f6033fa5a812917d03dcd94d51f215e9b035077f7ba1a4d113ba",
+      "json_sha256": "5949acd25d11de6163710905d09855414405279170ceefc18391ad7999d74170",
       "status": "converted",
-      "shadowrocket_unique_entries": 6862,
+      "shadowrocket_unique_entries": 6865,
       "shadowrocket_excluded_from_primary_entries": 0,
       "shadowrocket_wildcard_unique_entries": 0,
       "shadowrocket_wildcard_covered_predicates": 0,
       "shadowrocket_unrepresented_entries": 0,
       "shadowrocket_status": "converted",
       "shadowrocket": "Proxy/Proxy_Classical.list",
-      "shadowrocket_sha256": "ac59bd534ea4ce2c532738b74f9f47dbbe9045842a82ef95e86193102e380b9d"
+      "shadowrocket_sha256": "4a6d6d6496cf39e7b9e02a7f9209044171e51c40a7c3e1e162a5c2ac4a7e7cec"
     }
   ],
   "shadowrocket": {
     "generated_rule_sets": 204,
-    "unique_entries": 453105,
+    "unique_entries": 453108,
     "excluded_from_primary_entries": 287,
     "generated_wildcard_rule_sets": 18,
     "wildcard_unique_entries": 562,
@@ -9320,14 +9320,14 @@
     "ref": "master",
     "path": "rule/Clash/Proxy/Proxy_Classical.yaml",
     "readme": "rule/Clash/Proxy/README.md",
-    "commit": "933875d42861a7fdfd9f945cd18605d74fa7e943",
-    "sha256": "7f8b4a0424357356c5f5b07f58f7ba5f4b263d90b05dc144d06ebed829897acd",
+    "commit": "7dd06b44f5093dd5404e1e5f3bca5452d97146ef",
+    "sha256": "ee50696382603b5b786b2f22fd587bf3762b5a3828f62b2cd7587af226a50f4a",
     "files_sha256": {
-      "input.yaml": "7f8b4a0424357356c5f5b07f58f7ba5f4b263d90b05dc144d06ebed829897acd",
-      "README.proxy.md.txt": "23b30c4d79613a90b9a4dfc77d7bd9fda0ec159f52623a6ba7304e9ca65578b6",
+      "input.yaml": "ee50696382603b5b786b2f22fd587bf3762b5a3828f62b2cd7587af226a50f4a",
+      "README.proxy.md.txt": "59d1371d1378214b345cf73cfc52a272965c31b92c23207f8179467073925714",
       "README.upstream.md.txt": "22cf4c930b6341d747a5de1896367091421e64b43cc6ef4585075dd9a86e8ba7",
       "LICENSE.upstream.txt": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643"
     },
-    "snapshot_sha256": "cd7a94b169ac9e8340a9080d009232d4f0ddc949f6243b6bd8c34253739fef65"
+    "snapshot_sha256": "ae2f80b34f9cf17f8c3c20d1945232a7a4bbd67f2ef839900f1ba8344ceaab3d"
   }
 }
