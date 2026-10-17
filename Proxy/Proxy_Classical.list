@@ -1,6 +1,6 @@
 # Shadowrocket RULE-SET: domain predicates only; policy is supplied by the caller.
 # Source: blackmatrix7/ios_rule_script/rule/Clash/Proxy/Proxy_Classical.yaml
-# Upstream commit: 933875d42861a7fdfd9f945cd18605d74fa7e943
+# Upstream commit: 7dd06b44f5093dd5404e1e5f3bca5452d97146ef
 # Unsupported predicates excluded: 0; see manifest.json.
 DOMAIN,api.waqi.info
 DOMAIN,aqi.aqicn.org
@@ -167,6 +167,7 @@ DOMAIN-SUFFIX,6parknews.com
 DOMAIN-SUFFIX,7capture.com
 DOMAIN-SUFFIX,7cow.com
 DOMAIN-SUFFIX,7mmtv.tv
+DOMAIN-SUFFIX,7x24hrs.com
 DOMAIN-SUFFIX,8-d.com
 DOMAIN-SUFFIX,85cc.net
 DOMAIN-SUFFIX,85cc.us
@@ -3646,7 +3647,9 @@ DOMAIN-SUFFIX,merlinblog.xyz
 DOMAIN-SUFFIX,meshrep.com
 DOMAIN-SUFFIX,mesotw.com
 DOMAIN-SUFFIX,messenger.com
+DOMAIN-SUFFIX,meta.ai
 DOMAIN-SUFFIX,meta.com
+DOMAIN-SUFFIX,metaaivm.com
 DOMAIN-SUFFIX,metacafe.com
 DOMAIN-SUFFIX,metacubex.one
 DOMAIN-SUFFIX,metafilter.com
