@@ -209,4 +209,4 @@
 | WeiYun/WeiYun_Domain.yaml | [WeiYun/WeiYun_Domain.json](WeiYun/WeiYun_Domain.json) | 7 |
 | WeiYun/WeiYun_No_Resolve.yaml | [WeiYun/WeiYun_No_Resolve.json](WeiYun/WeiYun_No_Resolve.json) | 7 |
 | MetaCubeX/meta-rules-dat/geo/geosite/google@cn.json | [Google/google@cn_no_gemini.json](Google/google%40cn_no_gemini.json) | 122 |
-| blackmatrix7/ios_rule_script/rule/Clash/Proxy/Proxy_Classical.yaml | [Proxy/Proxy_Classical.json](Proxy/Proxy_Classical.json) | 6862 |
+| blackmatrix7/ios_rule_script/rule/Clash/Proxy/Proxy_Classical.yaml | [Proxy/Proxy_Classical.json](Proxy/Proxy_Classical.json) | 6865 |
