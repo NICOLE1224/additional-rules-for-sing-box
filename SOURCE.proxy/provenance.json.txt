@@ -4,7 +4,7 @@
     "ref": "master",
     "path": "rule/Clash/Proxy/Proxy_Classical.yaml",
     "readme": "rule/Clash/Proxy/README.md",
-    "commit": "7dd06b44f5093dd5404e1e5f3bca5452d97146ef",
+    "commit": "f9e403a75bbc4bee939c6d8dd766cf78f1b512f3",
     "sha256": "ee50696382603b5b786b2f22fd587bf3762b5a3828f62b2cd7587af226a50f4a",
     "files_sha256": {
       "input.yaml": "ee50696382603b5b786b2f22fd587bf3762b5a3828f62b2cd7587af226a50f4a",
@@ -55,6 +55,6 @@
     "shadowrocket_unrepresented_entries": 0,
     "shadowrocket_status": "converted",
     "shadowrocket": "Proxy/Proxy_Classical.list",
-    "shadowrocket_sha256": "4a6d6d6496cf39e7b9e02a7f9209044171e51c40a7c3e1e162a5c2ac4a7e7cec"
+    "shadowrocket_sha256": "8f9921dc6918620da108f69680ebaee55a108339dd9b57d565e1a2aaff6fde44"
   }
 }
