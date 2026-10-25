@@ -1,5 +1,5 @@
 # Derived Shadowrocket RULE-SET: google@cn minus Gemini/Gemini.yaml; domain predicates only.
-# Google CN commit: abc596b6f1b60295ed2b35478ba9b2206617bb69; input SHA-256: 4a3deb08d079e944cfb5b4437d297cf6167cb489fc1e5037264ddded312cfef3
+# Google CN commit: 77778b79baf08c86cc54892fea9b9b8c86ec850a; input SHA-256: 4a3deb08d079e944cfb5b4437d297cf6167cb489fc1e5037264ddded312cfef3
 # Fully covered predicates removed: 4; unsupported predicates omitted: 2.
 # See manifest.json for details. Arbitrary regexes are not approximated by wildcard rules.
 DOMAIN,2mdn-cn.net

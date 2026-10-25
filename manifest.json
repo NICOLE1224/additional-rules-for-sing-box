@@ -54,30 +54,30 @@
       "shadowrocket_wildcard_covered_predicates": 0,
       "shadowrocket_status": "converted",
       "shadowrocket": "Google/google@cn_no_gemini.list",
-      "shadowrocket_sha256": "9812e200517d19aa4b143892d400c622f89db2274d6ed44f6cc490ba57bbf751"
+      "shadowrocket_sha256": "ac90d6e6594270e18115f5346459e6025f8dfd4e9433d9e0922e8c8fa35bb5d4"
     }
   ],
   "additional_rule_sets": [
     {
       "source": "blackmatrix7/ios_rule_script/rule/Clash/Proxy/Proxy_Classical.yaml",
-      "source_sha256": "ee50696382603b5b786b2f22fd587bf3762b5a3828f62b2cd7587af226a50f4a",
-      "input_entries": 6965,
-      "converted_entries": 6865,
+      "source_sha256": "656153887fa693031a6d9e1586bbef99de907e1a3f2a3c6be8705d3f992b8a94",
+      "input_entries": 6985,
+      "converted_entries": 6885,
       "excluded_invalid_entries": 0,
-      "unique_entries": 6865,
+      "unique_entries": 6885,
       "duplicate_entries": 0,
       "ignored_non_domain_entries": 100,
       "input_types": {
         "DOMAIN": 9,
         "DOMAIN-KEYWORD": 26,
-        "DOMAIN-SUFFIX": 6830,
+        "DOMAIN-SUFFIX": 6850,
         "IP-CIDR": 96,
         "IP-CIDR6": 4
       },
       "domain_counts": {
         "domain": 9,
         "domain_keyword": 26,
-        "domain_suffix": 6830
+        "domain_suffix": 6850
       },
       "ignored_types": {
         "IP-CIDR": 96,
@@ -87,22 +87,22 @@
       "license": "GPL-2.0",
       "json": "Proxy/Proxy_Classical.json",
       "srs": "Proxy/Proxy_Classical.srs",
-      "srs_sha256": "8fd61fc18d92f6033fa5a812917d03dcd94d51f215e9b035077f7ba1a4d113ba",
-      "json_sha256": "5949acd25d11de6163710905d09855414405279170ceefc18391ad7999d74170",
+      "srs_sha256": "afcc23d8e1daba04221ceecb2f3641472dd7e2d12e4ac104a015d1547920d5fe",
+      "json_sha256": "a5302c138a3a1bb230aef9867e2926107eeb50a8c1ee3846696be3447506a9ea",
       "status": "converted",
-      "shadowrocket_unique_entries": 6865,
+      "shadowrocket_unique_entries": 6885,
       "shadowrocket_excluded_from_primary_entries": 0,
       "shadowrocket_wildcard_unique_entries": 0,
       "shadowrocket_wildcard_covered_predicates": 0,
       "shadowrocket_unrepresented_entries": 0,
       "shadowrocket_status": "converted",
       "shadowrocket": "Proxy/Proxy_Classical.list",
-      "shadowrocket_sha256": "949107cb74b1d89a7bfbe7a2034eced0f33a10907ae7e12e5a2409ac6e16829b"
+      "shadowrocket_sha256": "5a486e5e64b210af365d8775ed7ff73c343a9ff23f0d5884ca7212b252fb5d31"
     }
   ],
   "shadowrocket": {
     "generated_rule_sets": 204,
-    "unique_entries": 453108,
+    "unique_entries": 453128,
     "excluded_from_primary_entries": 287,
     "generated_wildcard_rule_sets": 18,
     "wildcard_unique_entries": 562,
@@ -9312,7 +9312,7 @@
     "repository": "https://github.com/MetaCubeX/meta-rules-dat",
     "ref": "sing",
     "path": "geo/geosite/google@cn.json",
-    "commit": "abc596b6f1b60295ed2b35478ba9b2206617bb69",
+    "commit": "77778b79baf08c86cc54892fea9b9b8c86ec850a",
     "sha256": "4a3deb08d079e944cfb5b4437d297cf6167cb489fc1e5037264ddded312cfef3"
   },
   "proxy_source": {
@@ -9320,14 +9320,14 @@
     "ref": "master",
     "path": "rule/Clash/Proxy/Proxy_Classical.yaml",
     "readme": "rule/Clash/Proxy/README.md",
-    "commit": "00d82f6c6c374abb947fabc9c1b69f2a22e71dbc",
-    "sha256": "ee50696382603b5b786b2f22fd587bf3762b5a3828f62b2cd7587af226a50f4a",
+    "commit": "9b29c945b9164a02c7018ed333cb9b5bc1bcb417",
+    "sha256": "656153887fa693031a6d9e1586bbef99de907e1a3f2a3c6be8705d3f992b8a94",
     "files_sha256": {
-      "input.yaml": "ee50696382603b5b786b2f22fd587bf3762b5a3828f62b2cd7587af226a50f4a",
-      "README.proxy.md.txt": "59d1371d1378214b345cf73cfc52a272965c31b92c23207f8179467073925714",
+      "input.yaml": "656153887fa693031a6d9e1586bbef99de907e1a3f2a3c6be8705d3f992b8a94",
+      "README.proxy.md.txt": "12458af54a5614f96b4120a6cc25e7012614d36e2b27189f6989892c1c9b0952",
       "README.upstream.md.txt": "22cf4c930b6341d747a5de1896367091421e64b43cc6ef4585075dd9a86e8ba7",
       "LICENSE.upstream.txt": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643"
     },
-    "snapshot_sha256": "ae2f80b34f9cf17f8c3c20d1945232a7a4bbd67f2ef839900f1ba8344ceaab3d"
+    "snapshot_sha256": "f013e5eec89fac94b3f3b50634df40430b1b1e6debac535592fa99c70679fa92"
   }
 }
