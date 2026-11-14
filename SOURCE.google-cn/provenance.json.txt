@@ -3,8 +3,8 @@
     "repository": "https://github.com/MetaCubeX/meta-rules-dat",
     "ref": "sing",
     "path": "geo/geosite/google@cn.json",
-    "commit": "8fcd7bb317a3468d2476edd825d7d76e2ff6e9f0",
-    "sha256": "88f23c5042829050ddd1eec69c337957f19aa09231fb4b95b9b79a9731ca6a89"
+    "commit": "eb4267fdeb7eb6ea902dfef8e02ab8c9f986680f",
+    "sha256": "230e36c6fc1742808fa3a5e6d7e820e2d3fdaf34730a986724aa86478271c495"
   },
   "derivation": {
     "operation": "google@cn AND NOT Gemini",
