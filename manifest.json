@@ -9,7 +9,7 @@
   "derived_rule_sets": [
     {
       "source": "MetaCubeX/meta-rules-dat/geo/geosite/google@cn.json",
-      "source_sha256": "230e36c6fc1742808fa3a5e6d7e820e2d3fdaf34730a986724aa86478271c495",
+      "source_sha256": "88f23c5042829050ddd1eec69c337957f19aa09231fb4b95b9b79a9731ca6a89",
       "status": "converted",
       "input_entries": 126,
       "unique_entries": 122,
@@ -54,7 +54,7 @@
       "shadowrocket_wildcard_covered_predicates": 0,
       "shadowrocket_status": "converted",
       "shadowrocket": "Google/google@cn_no_gemini.list",
-      "shadowrocket_sha256": "cfab026f8bfe88d453c5f11669a44237c423a0a06a10990b847a2e54ea213571"
+      "shadowrocket_sha256": "e29e429fec8507216af0fb6b4aca469d5217616c86499f8b2f3be44f3e12ca67"
     }
   ],
   "additional_rule_sets": [
@@ -9312,8 +9312,8 @@
     "repository": "https://github.com/MetaCubeX/meta-rules-dat",
     "ref": "sing",
     "path": "geo/geosite/google@cn.json",
-    "commit": "287ca45a8e93506f666f0e72f934457e52397fb1",
-    "sha256": "230e36c6fc1742808fa3a5e6d7e820e2d3fdaf34730a986724aa86478271c495"
+    "commit": "2f927fd185c9ab3791a0a918814dc44f8f6cba3e",
+    "sha256": "88f23c5042829050ddd1eec69c337957f19aa09231fb4b95b9b79a9731ca6a89"
   },
   "proxy_source": {
     "repository": "https://github.com/blackmatrix7/ios_rule_script",
